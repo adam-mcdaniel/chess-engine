@@ -27,4 +27,4 @@ rand = "0.8"
 getrandom = { version = "0.2", features = ["js"] }
 iced_web = "0.3"
 lazy_static = "1.4"
-chess-rs = { path = "../.." }
+chess-engine = { path = "../.." }

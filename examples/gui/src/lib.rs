@@ -3,8 +3,8 @@ use rand::{thread_rng, seq::SliceRandom};
 use lazy_static::lazy_static;
 
 use std::{sync::Mutex, thread::sleep_ms};
-use chess_rs::*;
-pub use chess_rs::Board;
+use chess_engine::*;
+pub use chess_engine::Board;
 
 pub fn run(get_cpu_move: fn(&Board) -> Move, starting_board: Board) -> iced::Result {
     {
