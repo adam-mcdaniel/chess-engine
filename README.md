@@ -6,9 +6,7 @@ A pure Rust, dependency-free chess engine built to run anywhere.
 
 Because it has zero dependencies, it's extremely simple to embed in the web browser using wasm. Try playing it yourself!
 
-<html>
-<embed type="text/html" src="./examples/web/chess-worst.html" width="420" height="420">
-</html>
+<embed type="text/html" src="https://adam-mcdaniel.github.io/chess-rs/examples/web/chess-best.html" width="420" height="420">
 
 ## Example
 
