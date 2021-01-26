@@ -1,0 +1,29 @@
+[package]
+name = "gui"
+version = "0.1.0"
+authors = ["Adam McDaniel <adam.mcdaniel17@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[[bin]]
+name = "best"
+path = "src/bins/best.rs"
+
+[[bin]]
+name = "worst"
+path = "src/bins/worst.rs"
+
+[[bin]]
+name = "random"
+path = "src/bins/random.rs"
+
+[[bin]]
+name = "horde"
+path = "src/bins/horde.rs"
+
+
+[dependencies]
+iced = "0.2"
+rand = "0.8"
+lazy_static = "1.4"
+chess-rs = { path = "../.." }
