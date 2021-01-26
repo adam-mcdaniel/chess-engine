@@ -1,5 +1,5 @@
 [package]
-name = "chess"
+name = "chess-rs"
 version = "0.1.0"
 authors = ["Adam McDaniel <adam.mcdaniel17@gmail.com>"]
 edition = "2018"
@@ -9,4 +9,5 @@ edition = "2018"
 path = "src/bin.rs"
 name = "chess"
 
-[dependencies]
+[[example]]
+name = "terminal"
