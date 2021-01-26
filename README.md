@@ -1,4 +1,4 @@
-# chess-engine
+[# chess-engine](https://adam-mcdaniel.github.io/chess-engine/docs/book/index.html)
 
 A pure Rust, dependency-free chess engine built to run anywhere.
 
