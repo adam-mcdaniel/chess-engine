@@ -167,9 +167,9 @@
                     <main>
                         <h1><a class="header" href="#chess-engine" id="chess-engine">chess-engine</a></h1>
 <p>A pure Rust, dependency-free chess engine built to run anywhere.</p>
-<h2><a class="header" href="#why-write-a-chess-engine" id="why-write-a-chess-engine">Why write a chess engine?</a></h2>
+<h2><a class="header" href="#why-write-a-chess-engine" id="why-write-a-chess-engine">Why write a Chess engine?</a></h2>
 <p>I love chess a <em>lot</em>. It's definitely one of my favorite games ever. However, I've always been disappointed when trying to play chess digitally. Although wonderful websites like <a href="https://chess.com/">chess.com</a> and <a href="https://lichess.org/">lichess</a> exist, it's near impossible to find something that runs on everything.</p>
-<p>chess-engine is a solution to my problem. If you want a chess engine that runs on embedded devices, the terminal, <a href="">the desktop (with a gui)</a>, <em>and</em> <a href="https://adam-mcdaniel.github.io/chess-engine/docs/book/index.html#average-ai">the web</a>, this is probably your best bet.</p>
+<p>chess-engine is a solution to my problem. If you want a chess engine that runs on embedded devices, the terminal, <a href="https://github.com/adam-mcdaniel/chess-engine/tree/main/examples/gui">the desktop (with a gui)</a>, <em>and</em> <a href="https://adam-mcdaniel.github.io/chess-engine/docs/book/index.html#average-ai">the web</a>, this is probably your best bet.</p>
 <h2><a class="header" href="#how-does-it-work" id="how-does-it-work">How does it work?</a></h2>
 <p>This particular AI works using the <a href="https://en.wikipedia.org/wiki/Minimax">Minimax algorithm</a>, along with <a href="https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning">Alpha-Beta pruning</a> for optimization.</p>
 <p>Now, let's unpack that.</p>
@@ -185,7 +185,10 @@
 <p>Because Minimax works by simply maximizing the AI's material advantage over the player, it's incredibly simple to abuse the algorithm by changing what it is maximizing.</p>
 <p>Here, for example, is the <strong><em>opposite</em></strong> of a good AI. This AI tries to maximize <em><strong>YOUR</strong></em> material value, and will desperately try to offer you its pieces while still making legal moves.</p>
 <embed type="text/html" src="https://adam-mcdaniel.github.io/chess-engine/examples/web/chess-worst.html" width="420" height="420"/>
+<h2><a class="header" href="#other-features" id="other-features">Other features</a></h2>
+<p>Additionally, builtin, chess-engine offers an incredibly simple chess variant called <a href="https://www.chess.com/terms/horde-chess">Horde</a>, which I find very fun.</p>
 <embed type="text/html" src="https://adam-mcdaniel.github.io/chess-engine/examples/web/chess-horde.html" width="420" height="420"/>
+<p>Additionally, chess-engine supports getting all of the legal moves for a player. So, naturally, I had to add a random-move AI.</p>
 <embed type="text/html" src="https://adam-mcdaniel.github.io/chess-engine/examples/web/chess-random.html" width="420" height="420"/>
 
                     </main>

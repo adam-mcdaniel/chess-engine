@@ -2,11 +2,11 @@
 
 A pure Rust, dependency-free chess engine built to run anywhere.
 
-## Why write a chess engine?
+## Why write a Chess engine?
 
 I love chess a _lot_. It's definitely one of my favorite games ever. However, I've always been disappointed when trying to play chess digitally. Although wonderful websites like [chess.com](https://chess.com/) and [lichess](https://lichess.org/) exist, it's near impossible to find something that runs on everything.
 
-chess-engine is a solution to my problem. If you want a chess engine that runs on embedded devices, the terminal, [the desktop (with a gui)](), _and_ [the web](https://adam-mcdaniel.github.io/chess-engine/docs/book/index.html#average-ai), this is probably your best bet.
+chess-engine is a solution to my problem. If you want a chess engine that runs on embedded devices, the terminal, [the desktop (with a gui)](https://github.com/adam-mcdaniel/chess-engine/tree/main/examples/gui), _and_ [the web](https://adam-mcdaniel.github.io/chess-engine/docs/book/index.html#average-ai), this is probably your best bet.
 
 ## How does it work?
 
@@ -30,7 +30,6 @@ As you can see with a little experimentation, it works quite well.
 
 <embed type="text/html" src="https://adam-mcdaniel.github.io/chess-engine/examples/web/chess-best.html" width="420" height="420"/>
 
-
 ### Abusing Minimax
 
 Because Minimax works by simply maximizing the AI's material advantage over the player, it's incredibly simple to abuse the algorithm by changing what it is maximizing.
@@ -40,5 +39,14 @@ Here, for example, is the **_opposite_** of a good AI. This AI tries to maximize
 <embed type="text/html" src="https://adam-mcdaniel.github.io/chess-engine/examples/web/chess-worst.html" width="420" height="420"/>
 
 
+## Other features
+
+Additionally, builtin, chess-engine offers an incredibly simple chess variant called [Horde](https://www.chess.com/terms/horde-chess), which I find very fun.
+
 <embed type="text/html" src="https://adam-mcdaniel.github.io/chess-engine/examples/web/chess-horde.html" width="420" height="420"/>
+
+
+Additionally, chess-engine supports getting all of the legal moves for a player. So, naturally, I had to add a random-move AI.
+
 <embed type="text/html" src="https://adam-mcdaniel.github.io/chess-engine/examples/web/chess-random.html" width="420" height="420"/>
+
