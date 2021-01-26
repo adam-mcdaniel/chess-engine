@@ -279,7 +279,7 @@ impl Sandbox for ChessBoard {
             let pos = Position::new(r, c);
 
             let (text, color) = if let Some(piece) = self.board.get_piece(pos) {
-                (piece.with_color(WHITE).to_string(), piece.get_color())
+                (piece.to_string(), piece.get_color())
             } else {
                 (String::from(" "), WHITE)
             };

@@ -182,81 +182,6 @@ impl Default for Board {
             .piece(Piece::Rook(WHITE, H1))
             .enable_castling()
             .build()
-        // Self {
-        //     squares: [
-        //         Square::from(Piece::Rook(BLACK, Position::new(7, 0))),
-        //         Square::from(Piece::Knight(BLACK, Position::new(7, 1))),
-        //         Square::from(Piece::Bishop(BLACK, Position::new(7, 2))),
-        //         Square::from(Piece::Queen(BLACK, Position::new(7, 3))),
-        //         Square::from(Piece::King(BLACK, Position::new(7, 4))),
-        //         Square::from(Piece::Bishop(BLACK, Position::new(7, 5))),
-        //         Square::from(Piece::Knight(BLACK, Position::new(7, 6))),
-        //         Square::from(Piece::Rook(BLACK, Position::new(7, 7))),
-        //         Square::from(Piece::Pawn(BLACK, Position::new(6, 0))),
-        //         Square::from(Piece::Pawn(BLACK, Position::new(6, 1))),
-        //         Square::from(Piece::Pawn(BLACK, Position::new(6, 2))),
-        //         Square::from(Piece::Pawn(BLACK, Position::new(6, 3))),
-        //         Square::from(Piece::Pawn(BLACK, Position::new(6, 4))),
-        //         Square::from(Piece::Pawn(BLACK, Position::new(6, 5))),
-        //         Square::from(Piece::Pawn(BLACK, Position::new(6, 6))),
-        //         Square::from(Piece::Pawn(BLACK, Position::new(6, 7))),
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         EMPTY_SQUARE,
-        //         Square::from(Piece::Pawn(WHITE, Position::new(1, 0))),
-        //         Square::from(Piece::Pawn(WHITE, Position::new(1, 1))),
-        //         Square::from(Piece::Pawn(WHITE, Position::new(1, 2))),
-        //         Square::from(Piece::Pawn(WHITE, Position::new(1, 3))),
-        //         Square::from(Piece::Pawn(WHITE, Position::new(1, 4))),
-        //         Square::from(Piece::Pawn(WHITE, Position::new(1, 5))),
-        //         Square::from(Piece::Pawn(WHITE, Position::new(1, 6))),
-        //         Square::from(Piece::Pawn(WHITE, Position::new(1, 7))),
-        //         Square::from(Piece::Rook(WHITE, Position::new(0, 0))),
-        //         Square::from(Piece::Knight(WHITE, Position::new(0, 1))),
-        //         Square::from(Piece::Bishop(WHITE, Position::new(0, 2))),
-        //         Square::from(Piece::Queen(WHITE, Position::new(0, 3))),
-        //         Square::from(Piece::King(WHITE, Position::new(0, 4))),
-        //         Square::from(Piece::Bishop(WHITE, Position::new(0, 5))),
-        //         Square::from(Piece::Knight(WHITE, Position::new(0, 6))),
-        //         Square::from(Piece::Rook(WHITE, Position::new(0, 7))),
-        //     ],
-
-        //     en_passant: None,
-
-        //     white_castling_rights: CastlingRights::default(),
-        //     black_castling_rights: CastlingRights::default(),
-
-        //     turn: WHITE,
-        // }
     }
 }
 
@@ -391,7 +316,7 @@ impl core::fmt::Display for Board {
 }
 
 impl Board {
-    /// Create the default board for the HOARD
+    /// Create the default board for the Horde variant
     pub fn horde() -> Self {
         BoardBuilder::from(Board::default())
             .row(Piece::Pawn(BLACK, H7))
