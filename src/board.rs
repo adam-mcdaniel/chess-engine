@@ -180,6 +180,7 @@ impl Default for Board {
             .piece(Piece::Bishop(WHITE, F1))
             .piece(Piece::Knight(WHITE, G1))
             .piece(Piece::Rook(WHITE, H1))
+            .enable_castling()
             .build()
         // Self {
         //     squares: [
