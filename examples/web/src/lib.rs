@@ -310,7 +310,7 @@ impl Sandbox for ChessBoard {
             .style(ChessBoardStyle)
             .width(Length::Shrink)
             .height(Length::Shrink)
-            .padding(5)
+            .padding(10)
             .into()
     }
 }
