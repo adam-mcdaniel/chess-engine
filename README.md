@@ -4,9 +4,7 @@ A pure Rust, dependency-free chess engine built to run anywhere.
 
 ## Embedded in the Web
 
-Because it has zero dependencies, it's extremely simple to embed in the web browser using wasm. Try playing it yourself!
-
-<embed type="text/html" src="https://adam-mcdaniel.github.io/chess-engine/examples/web/chess-best.html" width="420" height="420"/>
+Because it has zero dependencies, it's extremely simple to embed in the web browser using wasm. [Try playing it yourself!](https://adam-mcdaniel.github.io/chess-engine/docs/book/index.html)
 
 ## Example
 
