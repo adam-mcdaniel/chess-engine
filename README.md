@@ -23,9 +23,15 @@
   <sub>Written in Rust🦀💖</sub>
 </div>
 
-<a href="https://adam-mcdaniel.github.io/chess-engine/docs/book/index.html#average-ai">
-  <img alt="Chess in the terminal" src="./assets/terminal.png"/>
-</a>
+<div align="center">
+  <a href="https://adam-mcdaniel.github.io/chess-engine/docs/book/index.html#average-ai">
+    <img alt="Chess in the terminal" src="./assets/terminal2.png" width="36%"/>
+  </a>
+  <a href="https://adam-mcdaniel.github.io/chess-engine/docs/book/index.html#average-ai">
+    <img alt="Chess in the web" src="./assets/web.png" width="63%"/>
+  </a>
+</div>
+
 
 ## Why write a Chess engine?
 
