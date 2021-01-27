@@ -264,7 +264,7 @@ impl Sandbox for ChessBoard {
     }
 
     fn view(&mut self) -> Element<Message> {
-        let mut result = Column::new().spacing(0).align_items(Align::Center).width(Length::Units(SQUARE_SIZE)).height(Length::Units(SQUARE_SIZE * 8));
+        let mut result = Column::new().spacing(0).align_items(Align::Center).width(Length::Units(SQUARE_SIZE * 8)).height(Length::Units(SQUARE_SIZE * 8));
         let mut row = Row::new().spacing(0).align_items(Align::Center).width(Length::Units(SQUARE_SIZE * 8)).height(Length::Units(SQUARE_SIZE));
         let mut i = 0;
 
