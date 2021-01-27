@@ -111,6 +111,7 @@ _**Keep in mind when using a `BoardBuilder` that castling is disabled by default
     <img alt="Play the Horde Chess Variant" src="./assets/horde.png"/>
   </a>
 </div>
+
 ```rust
 fn main() {
     // `BoardBuilder::new()` returns an empty board with castling disabled.
