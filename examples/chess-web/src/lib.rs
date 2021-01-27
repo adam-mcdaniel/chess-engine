@@ -288,8 +288,6 @@ impl Sandbox for ChessBoard {
                     Text::new(text)
                         .horizontal_alignment(HorizontalAlignment::Center)
                         .vertical_alignment(VerticalAlignment::Center)
-                        .width(Length::Shrink)
-                        .height(Length::Shrink)
                         .size(SQUARE_SIZE)
                 )
                 .min_height(SQUARE_SIZE as u32)
