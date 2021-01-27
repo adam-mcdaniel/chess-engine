@@ -264,8 +264,8 @@ impl Sandbox for ChessBoard {
     }
 
     fn view(&mut self) -> Element<Message> {
-        let mut result = Column::new().spacing(0);
-        let mut row = Row::new().spacing(0).align_items(Align::Center).height(Length::Units(SQUARE_SIZE));
+        let mut result = Column::new().spacing(0).max_height(SQUARE_SIZE as u32 * 8).max_width(SQUARE_SIZE as u32 * 8);
+        let mut row = Row::new().spacing(0).align_items(Align::Center).max_height(SQUARE_SIZE as u32).max_width(SQUARE_SIZE as u32 * 8);
         let mut i = 0;
 
         let is_white = self.board.get_current_player_color() == WHITE;
@@ -288,9 +288,11 @@ impl Sandbox for ChessBoard {
                     Text::new(text)
                         .horizontal_alignment(HorizontalAlignment::Center)
                         .vertical_alignment(VerticalAlignment::Center)
+                        .height(Length::Fill)
+                        .width(Length::Fill)
                 )
-                .height(Length::Units(SQUARE_SIZE))
-                .width(Length::Units(SQUARE_SIZE))
+                .height(Length::Fill)
+                .width(Length::Fill)
                 .on_press(Message::SelectSquare(pos))
                 .style(ChessSquare::from((pos, color, self.from_square == Some(pos))))
             );
@@ -298,7 +300,7 @@ impl Sandbox for ChessBoard {
 
             if i % 8 == 0 {
                 result = result.push(row);
-                row = Row::new().spacing(0).align_items(Align::Center).height(Length::Units(SQUARE_SIZE));
+                row = Row::new().spacing(0).align_items(Align::Center).max_height(SQUARE_SIZE as u32).max_width(SQUARE_SIZE as u32 * 8);
             }
         }
         
