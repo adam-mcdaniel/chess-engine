@@ -52,6 +52,11 @@ This allows the computer to almost always play objectively better moves than the
 
 Because it has zero dependencies, it's extremely simple to embed in the web browser using wasm. [Try playing it yourself!](https://adam-mcdaniel.github.io/chess-engine/docs/book/index.html#average-ai)
 
+
+<a href="https://adam-mcdaniel.github.io/chess-engine/docs/book/index.html#average-ai">
+  <img alt="Try playing it yourself!" src="./assets/web-board.png"/>
+</a>
+
 ## Usage
 
 The `Board` structure has a few different methods that allow users to generate moves from a given position, including `get_best_next_move`, `get_worst_next_move`, and `get_legal_moves`. These are particularly handy for writing chess AIs to play against.
