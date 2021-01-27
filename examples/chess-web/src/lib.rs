@@ -265,7 +265,7 @@ impl Sandbox for ChessBoard {
 
     fn view(&mut self) -> Element<Message> {
         let mut result = Column::new().spacing(0);
-        let mut row = Row::new().spacing(0);
+        let mut row = Row::new().spacing(0).align_items(Align::Center).height(Length::Units(SQUARE_SIZE));
         let mut i = 0;
 
         let is_white = self.board.get_current_player_color() == WHITE;
@@ -298,7 +298,7 @@ impl Sandbox for ChessBoard {
 
             if i % 8 == 0 {
                 result = result.push(row);
-                row = Row::new().spacing(0).align_items(Align::Center);
+                row = Row::new().spacing(0).align_items(Align::Center).height(Length::Units(SQUARE_SIZE));
             }
         }
         
