@@ -14,7 +14,7 @@ The `lib.rs` file contains all of the GUI logic.
 
 ![Web GUI](../assets/web.png)
 
-A simple desktop GUI made with [iced](https://github.com/hecrj/iced), combined with [wasm-bindgen](https://github.com/rustwasm/wasm-bindgen) and [iced_web](https://github.com/hecrj/iced/tree/master/web). This allows the GUI to be executed as WASM in the browser.
+A simple web GUI made with [iced](https://github.com/hecrj/iced), combined with [wasm-bindgen](https://github.com/rustwasm/wasm-bindgen) and [iced_web](https://github.com/hecrj/iced/tree/master/web). This allows the GUI to be executed as WASM in the browser.
 
 The `lib.rs` file contains all of the GUI logic.
 
