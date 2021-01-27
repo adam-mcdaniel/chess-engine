@@ -36,7 +36,7 @@ Because Minimax works by simply maximizing the AI's material advantage over the 
 
 Here, for example, is the **_opposite_** of a good AI. This AI tries to maximize _**YOUR**_ material value, and will desperately try to offer you its pieces while still making legal moves.
 
-<embed type="text/html" src="https://adam-mcdaniel.github.io/chess-engine/examples/chess-web/chess-worst.html" width="450" height="450"/>
+<embed type="text/html" src="https://adam-mcdaniel.github.io/chess-engine/examples/chess-web/chess-worst.html" width="420" height="450"/>
 
 
 ## Other features
