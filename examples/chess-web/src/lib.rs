@@ -32,7 +32,7 @@ lazy_static! {
     static ref STARTING_BOARD: Mutex<Board> = Mutex::new(Board::default());
 }
 
-const SQUARE_SIZE: u16 = 52;
+const SQUARE_SIZE: u16 = 60;
 // pub const AI_DEPTH: i32 = if cfg!(debug_assertions) {2} else {3};
 pub const AI_DEPTH: i32 = 2;
 
