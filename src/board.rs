@@ -630,7 +630,8 @@ impl Board {
                     let piece = Piece::Pawn(c, pos);
                     ((if let Some(en_passant) = self.en_passant {
                         (en_passant == from.pawn_up(player_color).next_left()
-                            || en_passant == from.pawn_up(player_color).next_right())
+                            || en_passant == from.pawn_up(player_color).next_right()
+                            && en_passant == to)
                             && c == player_color
                     } else {
                         false
@@ -740,8 +741,9 @@ impl Board {
                 if let (Some(en_passant), Some(Piece::Pawn(player_color, _))) =
                     (self.en_passant, self.get_piece(from))
                 {
-                    if en_passant == from.pawn_up(player_color).next_left()
-                        || en_passant == from.pawn_up(player_color).next_right()
+                    if (en_passant == from.pawn_up(player_color).next_left()
+                        || en_passant == from.pawn_up(player_color).next_right())
+                        && en_passant == to
                     {
                         result.squares[((7 - en_passant.pawn_back(player_color).get_row()) * 8
                             + en_passant.get_col())

@@ -2,7 +2,7 @@ use iced::{button, container, Container, Align, Length, HorizontalAlignment, Ver
 use rand::{thread_rng, seq::SliceRandom};
 use lazy_static::lazy_static;
 
-use std::{sync::Mutex, thread::sleep_ms};
+use std::sync::Mutex;
 use chess_engine::*;
 pub use chess_engine::Board;
 
