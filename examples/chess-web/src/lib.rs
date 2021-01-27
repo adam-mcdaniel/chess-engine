@@ -265,6 +265,54 @@ impl Sandbox for ChessBoard {
     }
 
     fn view(&mut self) -> Element<Message> {
+        // let mut result = Column::new().spacing(0).align_items(Align::Center);
+        // let mut row = Row::new().spacing(0).align_items(Align::Center);
+        // let mut i = 0;
+
+        // let is_white = self.board.get_current_player_color() == WHITE;
+        // for button in &mut self.squares {
+        //     // let r = if is_white { 7 - i / 8 } else { i / 8 };
+        //     // let c = if is_white { i % 8 } else { 7 - (i % 8) };
+        //     let r = if is_white { 7 - i / 8 } else { i / 8 };
+        //     let c = if is_white { i % 8 } else { 7 - (i % 8) };
+            
+        //     let pos = Position::new(r, c);
+
+        //     let (text, color) = if let Some(piece) = self.board.get_piece(pos) {
+        //         let c = piece.get_color();
+        //         (piece.with_color(!c).to_string(), c)
+        //     } else {
+        //         (String::from(" "), WHITE)
+        //     };
+            
+        //     row = row.push(Button::new(button,
+        //             Text::new(text)
+        //                 .horizontal_alignment(HorizontalAlignment::Center)
+        //                 .vertical_alignment(VerticalAlignment::Center)
+        //                 .width(Length::Units((SQUARE_SIZE as f32/1.5) as u16))
+        //                 .height(Length::Units((SQUARE_SIZE as f32/1.5) as u16))
+        //                 .size((SQUARE_SIZE as f32/1.2) as u16)
+        //         )
+        //         .height(Length::Units(SQUARE_SIZE))
+        //         .width(Length::Units(SQUARE_SIZE))
+        //         .on_press(Message::SelectSquare(pos))
+        //         .style(ChessSquare::from((pos, color, self.from_square == Some(pos))))
+        //     );
+        //     i += 1;
+
+        //     if i % 8 == 0 {
+        //         result = result.push(row);
+        //         row = Row::new().spacing(0).align_items(Align::Center);
+        //     }
+        // }
+        
+        // Container::new(result)
+        //     .style(ChessBoardStyle)
+        //     .width(Length::Shrink)
+        //     .height(Length::Shrink)
+        //     .padding(10)
+        //     .into()
+
         let mut result = Column::new().spacing(0).align_items(Align::Center);
         let mut row = Row::new().spacing(0).align_items(Align::Center);
         let mut i = 0;
@@ -279,8 +327,7 @@ impl Sandbox for ChessBoard {
             let pos = Position::new(r, c);
 
             let (text, color) = if let Some(piece) = self.board.get_piece(pos) {
-                let c = piece.get_color();
-                (piece.with_color(!c).to_string(), c)
+                (piece.with_color(WHITE).to_string(), piece.get_color())
             } else {
                 (String::from(" "), WHITE)
             };
@@ -289,14 +336,12 @@ impl Sandbox for ChessBoard {
                     Text::new(text)
                         .horizontal_alignment(HorizontalAlignment::Center)
                         .vertical_alignment(VerticalAlignment::Center)
-                        .width(Length::Units((SQUARE_SIZE as f32/1.5) as u16))
-                        .height(Length::Units((SQUARE_SIZE as f32/1.5) as u16))
-                        .size((SQUARE_SIZE as f32/1.2) as u16)
+                        .width(Length::Fill)
+                        .height(Length::Fill)
+                        .size(SQUARE_SIZE)
                 )
-                .min_height(SQUARE_SIZE as u32)
-                .min_width(SQUARE_SIZE as u32)
-                .height(Length::Units(SQUARE_SIZE))
                 .width(Length::Units(SQUARE_SIZE))
+                .height(Length::Units(SQUARE_SIZE))
                 .on_press(Message::SelectSquare(pos))
                 .style(ChessSquare::from((pos, color, self.from_square == Some(pos))))
             );
@@ -312,7 +357,7 @@ impl Sandbox for ChessBoard {
             .style(ChessBoardStyle)
             .width(Length::Shrink)
             .height(Length::Shrink)
-            .padding(10)
+            .padding(1)
             .into()
     }
 }
