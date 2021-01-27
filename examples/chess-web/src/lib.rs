@@ -293,8 +293,9 @@ impl Sandbox for ChessBoard {
                         .size(SQUARE_SIZE)
                 )
                 .min_height(SQUARE_SIZE as u32)
-                .height(Length::Units(SQUARE_SIZE))
-                .width(Length::Units(SQUARE_SIZE))
+                .min_width(SQUARE_SIZE as u32)
+                .height(Length::Shrink)
+                .width(Length::Shrink)
                 .on_press(Message::SelectSquare(pos))
                 .style(ChessSquare::from((pos, color, self.from_square == Some(pos))))
             );
