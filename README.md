@@ -114,9 +114,12 @@ _**Keep in mind when using a `BoardBuilder` that castling is disabled by default
 
 ```rust
 fn main() {
-    // `BoardBuilder::new()` returns an empty board with castling disabled.
-    // Creating a board builder from another board structure will preserve
-    // all settings from the board (such as castling and the last en-passant move).
+    // `BoardBuilder::new()` returns an empty board
+    // with castling disabled.
+    // Creating a board builder from another board
+    // structure will preserve
+    // all settings from the board (such as castling
+    // and the last en-passant move).
 
     // This BoardBuilder constructs the "Horde" chess variant!
     let board = BoardBuilder::from(Board::default())
