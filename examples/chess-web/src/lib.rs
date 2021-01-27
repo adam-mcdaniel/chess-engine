@@ -32,7 +32,7 @@ lazy_static! {
     static ref STARTING_BOARD: Mutex<Board> = Mutex::new(Board::default());
 }
 
-const SQUARE_SIZE: u16 = 48;
+const SQUARE_SIZE: u16 = 60;
 // pub const AI_DEPTH: i32 = if cfg!(debug_assertions) {2} else {3};
 pub const AI_DEPTH: i32 = 2;
 
@@ -291,7 +291,7 @@ impl Sandbox for ChessBoard {
                         .vertical_alignment(VerticalAlignment::Center)
                         .width(Length::Units((SQUARE_SIZE as f32/1.5) as u16))
                         .height(Length::Units((SQUARE_SIZE as f32/1.5) as u16))
-                        .size((SQUARE_SIZE as f32/1.2) as u16)
+                        .size((SQUARE_SIZE as f32/1.25) as u16)
                 )
                 .height(Length::Units(SQUARE_SIZE))
                 .width(Length::Units(SQUARE_SIZE))
