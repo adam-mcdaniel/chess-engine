@@ -597,16 +597,18 @@ impl Board {
             WHITE => {
                 self.has_no_piece(Position::new(0, 5))
                     && self.has_no_piece(Position::new(0, 6))
+                    && self.get_piece(Position::new(0, 7)) == Some(Piece::Rook(color, Position::new(0, 7)))
+                    && self.white_castling_rights.can_kingside_castle()
                     && !self.is_in_check(color)
                     && !self.is_threatened(Position::king_pos(color).next_right(), color)
-                    && self.white_castling_rights.can_kingside_castle()
             }
             BLACK => {
                 self.has_no_piece(Position::new(7, 5))
                     && self.has_no_piece(Position::new(7, 6))
+                    && self.get_piece(Position::new(7, 7)) == Some(Piece::Rook(color, Position::new(7, 7)))
+                    && self.black_castling_rights.can_kingside_castle()
                     && !self.is_in_check(color)
                     && !self.is_threatened(Position::king_pos(color).next_right(), color)
-                    && self.black_castling_rights.can_kingside_castle()
             }
         }
     }
@@ -618,16 +620,19 @@ impl Board {
                 self.has_no_piece(Position::new(0, 1))
                     && self.has_no_piece(Position::new(0, 2))
                     && self.has_no_piece(Position::new(0, 3))
-                    && !self.is_threatened(Position::queen_pos(color), color)
+                    && self.get_piece(Position::new(0, 0)) == Some(Piece::Rook(color, Position::new(0, 0)))
                     && self.white_castling_rights.can_queenside_castle()
-            }
+                    && !self.is_in_check(color)
+                    && !self.is_threatened(Position::queen_pos(color), color)
+                }
             BLACK => {
                 self.has_no_piece(Position::new(7, 1))
                     && self.has_no_piece(Position::new(7, 2))
                     && self.has_no_piece(Position::new(7, 3))
+                    && self.get_piece(Position::new(7, 0)) == Some(Piece::Rook(color, Position::new(7, 0)))
+                    && self.black_castling_rights.can_queenside_castle()
                     && !self.is_in_check(color)
                     && !self.is_threatened(Position::queen_pos(color), color)
-                    && self.black_castling_rights.can_queenside_castle()
             }
         }
     }
