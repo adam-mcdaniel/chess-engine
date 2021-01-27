@@ -45,7 +45,7 @@ This particular AI (along with most other chess AIs) works using the [Minimax al
 
 Now, let's unpack that.
 
-The Minimax algorithm essentially iterates through all possible moves recursively, and evaluates all of the boards _after_ the moves are played. If the board is _more_ favorable, it will **encourage** playing its parent move, but if a board is _less_ favorable, then it will select **against** playing a given move.
+The Minimax algorithm essentially iterates through all possible moves recursively, and evaluates all of the boards after the moves are played. If the board is _more_ favorable, it will **encourage** playing its parent move, but if a board is _less_ favorable, then it will select **against** playing a given move.
 
 ![Minimax](./assets/mini-max.jpeg)
 
