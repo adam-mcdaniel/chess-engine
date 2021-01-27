@@ -1,6 +1,5 @@
 # [chess-engine](https://adam-mcdaniel.github.io/chess-engine/docs/book/index.html)
 
-
 <div align="center">
   <h1>♔chess-engine♚</h1>
 
@@ -26,7 +25,9 @@
   <sub>Written in Rust🦀💖</sub>
 </div>
 
-![Chess in the terminal](./assets/terminal.png)
+<a href="https://adam-mcdaniel.github.io/chess-engine/docs/book/index.html#average-ai">
+  <img alt="Chess in the terminal" src="./assets/terminal.png"/>
+</a>
 
 ## Why write a Chess engine?
 
