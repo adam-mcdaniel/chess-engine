@@ -13,7 +13,7 @@
   </p>
 
   <h3>
-    <a href="https://adam-mcdaniel.github.io/chess-engine/docs/book/index.html">Demo</a>
+    <a href="https://adam-mcdaniel.github.io/chess-engine/docs/book/index.html#average-ai">Demo</a>
     <span> | </span>
     <a href="https://docs.rs/chess-engine/">Docs</a>
     <span> | </span>
