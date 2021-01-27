@@ -58,10 +58,14 @@ This allows the computer to almost always play objectively better moves than the
 
 Because it has zero dependencies, it's extremely simple to embed in the web browser using wasm. [Try playing it yourself!](https://adam-mcdaniel.github.io/chess-engine/docs/book/index.html#average-ai)
 
-
-<a href="https://adam-mcdaniel.github.io/chess-engine/docs/book/index.html#average-ai">
-  <img alt="Try playing it yourself!" src="./assets/web-board.png"/>
-</a>
+<div align="center">
+  <p>
+    <strong>Average AI Setting</strong>
+  </p>
+  <a href="https://adam-mcdaniel.github.io/chess-engine/docs/book/index.html#average-ai">
+    <img alt="Try playing it yourself!" src="./assets/web-board.png"/>
+  </a>
+</div>
 
 ## Usage
 
