@@ -100,6 +100,17 @@ To add some variation or more advanced play, consider writing an AI that plays k
 Additionally, users can create their own custom `Board` objects other than the default one. This is done using the `BoardBuilder` structure. The `BoardBuilder` structure supports enabling and disabling castling, placing rows and columns of pieces, and placing individual pieces.
 
 _**Keep in mind when using a `BoardBuilder` that castling is disabled by default!**_
+
+
+<div align="center">
+  <p>
+    <strong>Play the Horde Chess Variant</strong>
+  </p>
+
+  <a href="https://adam-mcdaniel.github.io/chess-engine/docs/book/index.html#other-features">
+    <img alt="Play the Horde Chess Variant" src="./assets/horde.png"/>
+  </a>
+</div>
 ```rust
 fn main() {
     // `BoardBuilder::new()` returns an empty board with castling disabled.
