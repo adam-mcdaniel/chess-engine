@@ -306,11 +306,61 @@ impl Sandbox for ChessBoard {
             }
         }
         
-        Container::new(result)
-            .style(ChessBoardStyle)
-            .width(Length::Shrink)
-            .height(Length::Shrink)
-            .padding(10)
-            .into()
+        result.into()
+        // Container::new(result)
+        //     .style(ChessBoardStyle)
+        //     .width(Length::Shrink)
+        //     .height(Length::Shrink)
+        //     .padding(10)
+        //     .into()
+
+        // let mut result = Column::new().spacing(0).align_items(Align::Center);
+        // let mut row = Row::new().spacing(0).align_items(Align::Center);
+        // let mut i = 0;
+
+        // let is_white = self.board.get_current_player_color() == WHITE;
+        // for button in &mut self.squares {
+        //     // let r = if is_white { 7 - i / 8 } else { i / 8 };
+        //     // let c = if is_white { i % 8 } else { 7 - (i % 8) };
+        //     let r = if is_white { 7 - i / 8 } else { i / 8 };
+        //     let c = if is_white { i % 8 } else { 7 - (i % 8) };
+            
+        //     let pos = Position::new(r, c);
+
+        //     let (text, color) = if let Some(piece) = self.board.get_piece(pos) {
+        //         (piece.with_color(WHITE).to_string(), piece.get_color())
+        //     } else {
+        //         (String::from(" "), WHITE)
+        //     };
+            
+        //     row = row.push(Button::new(button,
+        //             Text::new(text)
+        //                 .horizontal_alignment(HorizontalAlignment::Center)
+        //                 .vertical_alignment(VerticalAlignment::Center)
+        //                 // .width(Length::Fill)
+        //                 // .height(Length::Fill)
+        //                 // .size(SQUARE_SIZE)
+        //         )
+        //         .min_width(SQUARE_SIZE as u32)
+        //         .min_height(SQUARE_SIZE as u32)
+        //         .width(Length::Units(SQUARE_SIZE))
+        //         .height(Length::Units(SQUARE_SIZE))
+        //         .on_press(Message::SelectSquare(pos))
+        //         .style(ChessSquare::from((pos, color, self.from_square == Some(pos))))
+        //     );
+        //     i += 1;
+
+        //     if i % 8 == 0 {
+        //         result = result.push(row);
+        //         row = Row::new().spacing(0).align_items(Align::Center);
+        //     }
+        // }
+        
+        // Container::new(result)
+        //     .style(ChessBoardStyle)
+        //     .width(Length::Shrink)
+        //     .height(Length::Shrink)
+        //     .padding(1)
+        //     .into()
     }
 }
