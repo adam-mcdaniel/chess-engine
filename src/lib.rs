@@ -2,11 +2,11 @@
 #[macro_use]
 extern crate alloc;
 use alloc::{
-    string::{String, ToString},
+    string::String,
     vec::Vec,
 };
 
-use core::convert::TryFrom;
+use core::str::FromStr;
 
 mod board;
 pub use board::{Board, BoardBuilder};
@@ -143,13 +143,11 @@ pub enum Move {
 /// - `"e2 to e4"`
 ///
 /// Parsing a move such as `"knight to e4"` or `"Qxe4"` will NOT work.
-impl TryFrom<String> for Move {
-    type Error = String;
+impl FromStr for Move {
+    type Err = String;
 
-    fn try_from(repr: String) -> Result<Self, Self::Error> {
-        let repr = repr.trim().to_string();
-
-        Ok(match repr.as_str() {
+    fn from_str(repr: &str) -> Result<Self, Self::Err> {
+        Ok(match repr.trim() {
             "resign" | "resigns" => Self::Resign,
             "queenside castle" | "castle queenside" | "O-O-O" | "0-0-0" | "o-o-o" => {
                 Self::QueenSideCastle
@@ -194,8 +192,8 @@ impl Move {
     /// - `"e2 to e4"`
     ///
     /// Parsing a move such as `"knight to e4"` or `"Qxe4"` will NOT work.
-    pub fn parse(repr: String) -> Result<Self, String> {
-        Self::try_from(repr)
+    pub fn parse(repr: &str) -> Result<Self, String> {
+        Self::from_str(repr)
     }
 }
 

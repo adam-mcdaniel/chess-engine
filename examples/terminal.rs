@@ -1,7 +1,7 @@
 extern crate chess_engine;
 use chess_engine::*;
 use std::{
-    convert::TryFrom,
+    str::FromStr,
     io::{stdin, stdout, Write},
 };
 
@@ -56,8 +56,8 @@ fn main() -> Result<(), String> {
     let mut history = vec![];
 
     loop {
-        let mut s = input(">>> ");
-        s = s.trim().to_string();
+        let s = input(">>> ");
+        let s = s.trim();
 
         let m = if s.is_empty() {
             println!("Waiting for CPU to choose best move...");
@@ -80,7 +80,7 @@ fn main() -> Result<(), String> {
             }
             continue;
         } else {
-            match Move::try_from(s) {
+            match Move::from_str(s) {
                 Ok(m) => m,
                 Err(e) => {
                     eprintln!("{}", e);
