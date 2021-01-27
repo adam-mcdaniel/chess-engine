@@ -319,15 +319,6 @@ impl Board {
     /// Create the default board for the Horde variant
     pub fn horde() -> Self {
         BoardBuilder::from(Board::default())
-            .row(Piece::Pawn(BLACK, H7))
-            .piece(Piece::Rook(BLACK, A8))
-            .piece(Piece::Rook(BLACK, H8))
-            .piece(Piece::Knight(BLACK, B8))
-            .piece(Piece::Knight(BLACK, G8))
-            .piece(Piece::Bishop(BLACK, C8))
-            .piece(Piece::Bishop(BLACK, F8))
-            .piece(Piece::King(BLACK, E8))
-            .piece(Piece::Queen(BLACK, D8))
             .row(Piece::Pawn(WHITE, A1))
             .row(Piece::Pawn(WHITE, A2))
             .row(Piece::Pawn(WHITE, A3))

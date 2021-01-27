@@ -212,7 +212,6 @@ impl Sandbox for ChessBoard {
                         self.from_square = Some(pos);
                     }
                     (Some(from), Message::SelectSquare(to)) if from != to => {
-                        println!("from {} to {}", from, to);
                         let m = if ((from == E1 && to == G1) || (from == E8 && to == G8)) && Some(from) == self.board.get_king_pos(self.board.get_current_player_color()) {
                             Move::KingSideCastle
                         } else if ((from == E1 && to == C1) || (from == E8 && to == C8)) && Some(from) == self.board.get_king_pos(self.board.get_current_player_color()) {
@@ -251,7 +250,6 @@ impl Sandbox for ChessBoard {
                                 self.starting_board
                             },
                             GameResult::IllegalMove(mov) => {
-                                println!("{} is illegal", mov);
                                 self.from_square = Some(to);
                                 self.board
                             },

@@ -180,16 +180,16 @@
 <p>As you can see with a little experimentation, it works quite well. </p>
 <h4><a class="header" href="#average-ai" id="average-ai">Average AI</a></h4>
 <h5><a class="header" href="#keep-in-mind-this-is-at-a-low-setting-for-speed-in-the-browser" id="keep-in-mind-this-is-at-a-low-setting-for-speed-in-the-browser">Keep in mind, this is at a low setting for speed in the browser.</a></h5>
-<embed type="text/html" src="https://adam-mcdaniel.github.io/chess-engine/examples/web/chess-best.html" width="420" height="420"/>
+<embed type="text/html" src="https://adam-mcdaniel.github.io/chess-engine/examples/chess-web/chess-best.html" width="420" height="420"/>
 <h3><a class="header" href="#abusing-minimax" id="abusing-minimax">Abusing Minimax</a></h3>
 <p>Because Minimax works by simply maximizing the AI's material advantage over the player, it's incredibly simple to abuse the algorithm by changing what it is maximizing.</p>
 <p>Here, for example, is the <strong><em>opposite</em></strong> of a good AI. This AI tries to maximize <em><strong>YOUR</strong></em> material value, and will desperately try to offer you its pieces while still making legal moves.</p>
-<embed type="text/html" src="https://adam-mcdaniel.github.io/chess-engine/examples/web/chess-worst.html" width="420" height="420"/>
+<embed type="text/html" src="https://adam-mcdaniel.github.io/chess-engine/examples/chess-web/chess-worst.html" width="420" height="420"/>
 <h2><a class="header" href="#other-features" id="other-features">Other features</a></h2>
 <p>Additionally, builtin, chess-engine offers an incredibly simple chess variant called <a href="https://www.chess.com/terms/horde-chess">Horde</a>, which I find very fun.</p>
-<embed type="text/html" src="https://adam-mcdaniel.github.io/chess-engine/examples/web/chess-horde.html" width="420" height="420"/>
+<embed type="text/html" src="https://adam-mcdaniel.github.io/chess-engine/examples/chess-web/chess-horde.html" width="420" height="420"/>
 <p>Additionally, chess-engine supports getting all of the legal moves for a player. So, naturally, I had to add a random-move AI.</p>
-<embed type="text/html" src="https://adam-mcdaniel.github.io/chess-engine/examples/web/chess-random.html" width="420" height="420"/>
+<embed type="text/html" src="https://adam-mcdaniel.github.io/chess-engine/examples/chess-web/chess-random.html" width="420" height="420"/>
 
                     </main>
 
@@ -212,21 +212,6 @@
 
         </div>
 
-        
-        <!-- Livereload script (if served using the cli tool) -->
-        <script type="text/javascript">
-            var socket = new WebSocket("ws://localhost:3000/__livereload");
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
         
 
         
