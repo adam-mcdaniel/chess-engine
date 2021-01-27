@@ -32,7 +32,7 @@ lazy_static! {
     static ref STARTING_BOARD: Mutex<Board> = Mutex::new(Board::default());
 }
 
-const SQUARE_SIZE: u16 = 52;
+const SQUARE_SIZE: u16 = 48;
 // pub const AI_DEPTH: i32 = if cfg!(debug_assertions) {2} else {3};
 pub const AI_DEPTH: i32 = 2;
 
@@ -144,6 +144,7 @@ impl container::StyleSheet for ChessBoardStyle {
     fn style(&self) -> container::Style {
         container::Style {
             border_color: iced::Color::BLACK,
+            border_width: 10.0,
             border_radius: 0.0,
             ..container::Style::default()
         }
@@ -264,8 +265,8 @@ impl Sandbox for ChessBoard {
     }
 
     fn view(&mut self) -> Element<Message> {
-        let mut result = Column::new().spacing(0).max_height(SQUARE_SIZE as u32 * 8).max_width(SQUARE_SIZE as u32 * 8);
-        let mut row = Row::new().spacing(0).align_items(Align::Center).max_height(SQUARE_SIZE as u32).max_width(SQUARE_SIZE as u32 * 8);
+        let mut result = Column::new().spacing(0).align_items(Align::Center);
+        let mut row = Row::new().spacing(0).align_items(Align::Center);
         let mut i = 0;
 
         let is_white = self.board.get_current_player_color() == WHITE;
@@ -288,11 +289,12 @@ impl Sandbox for ChessBoard {
                     Text::new(text)
                         .horizontal_alignment(HorizontalAlignment::Center)
                         .vertical_alignment(VerticalAlignment::Center)
-                        .height(Length::Fill)
-                        .width(Length::Fill)
+                        .width(Length::Units((SQUARE_SIZE as f32/1.5) as u16))
+                        .height(Length::Units((SQUARE_SIZE as f32/1.5) as u16))
+                        .size((SQUARE_SIZE as f32/1.2) as u16)
                 )
-                .height(Length::Fill)
-                .width(Length::Fill)
+                .height(Length::Units(SQUARE_SIZE))
+                .width(Length::Units(SQUARE_SIZE))
                 .on_press(Message::SelectSquare(pos))
                 .style(ChessSquare::from((pos, color, self.from_square == Some(pos))))
             );
@@ -300,12 +302,15 @@ impl Sandbox for ChessBoard {
 
             if i % 8 == 0 {
                 result = result.push(row);
-                row = Row::new().spacing(0).align_items(Align::Center).max_height(SQUARE_SIZE as u32).max_width(SQUARE_SIZE as u32 * 8);
+                row = Row::new().spacing(0).align_items(Align::Center);
             }
         }
         
         Container::new(result)
             .style(ChessBoardStyle)
+            .width(Length::Shrink)
+            .height(Length::Shrink)
+            .padding(10)
             .into()
     }
 }
