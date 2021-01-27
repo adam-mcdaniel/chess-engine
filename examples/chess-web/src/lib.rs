@@ -291,7 +291,7 @@ impl Sandbox for ChessBoard {
                         .vertical_alignment(VerticalAlignment::Center)
                         .width(Length::Units((SQUARE_SIZE as f32/1.5) as u16))
                         .height(Length::Units((SQUARE_SIZE as f32/1.5) as u16))
-                        .size((SQUARE_SIZE as f32/1.25) as u16)
+                        .size((SQUARE_SIZE as f32/1.4) as u16)
                 )
                 .height(Length::Units(SQUARE_SIZE))
                 .width(Length::Units(SQUARE_SIZE))
