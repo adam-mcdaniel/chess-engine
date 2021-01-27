@@ -3,6 +3,21 @@ name = "chess-engine"
 version = "0.1.0"
 authors = ["Adam McDaniel <adam.mcdaniel17@gmail.com>"]
 edition = "2018"
+description = "A dependency-free chess engine library built to run anywhere."
+documentation = "https://docs.rs/chess-engine/"
+readme = "README.md"
+homepage = "https://github.com/adam-mcdaniel/chess-engine"
+repository = "https://github.com/adam-mcdaniel/chess-engine"
+license = "MIT"
+keywords = ["chess", "engine", "game", "board", "ai"]
+categories = [
+    "games",
+    "no-std",
+    "game-engines",
+    "game-development",
+    "algorithms"
+]
+
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [[bin]]
