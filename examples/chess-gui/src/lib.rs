@@ -249,7 +249,7 @@ impl Sandbox for ChessBoard {
                                 self.result = GameResult::Stalemate;
                                 self.starting_board
                             },
-                            GameResult::IllegalMove(mov) => {
+                            GameResult::IllegalMove(_) => {
                                 self.from_square = Some(to);
                                 self.board
                             },
