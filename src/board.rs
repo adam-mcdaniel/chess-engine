@@ -593,6 +593,7 @@ impl Board {
 
     /// Can a given player castle kingside?
     pub fn can_kingside_castle(&self, color: Color) -> bool {
+        let right_of_king = Position::king_pos(color).next_right();
         match color {
             WHITE => {
                 self.has_no_piece(Position::new(0, 5))
@@ -600,7 +601,8 @@ impl Board {
                     && self.get_piece(Position::new(0, 7)) == Some(Piece::Rook(color, Position::new(0, 7)))
                     && self.white_castling_rights.can_kingside_castle()
                     && !self.is_in_check(color)
-                    && !self.is_threatened(Position::king_pos(color).next_right(), color)
+                    && !self.is_threatened(right_of_king, color)
+                    && !self.is_threatened(right_of_king.next_right(), color)
             }
             BLACK => {
                 self.has_no_piece(Position::new(7, 5))
@@ -608,7 +610,8 @@ impl Board {
                     && self.get_piece(Position::new(7, 7)) == Some(Piece::Rook(color, Position::new(7, 7)))
                     && self.black_castling_rights.can_kingside_castle()
                     && !self.is_in_check(color)
-                    && !self.is_threatened(Position::king_pos(color).next_right(), color)
+                    && !self.is_threatened(right_of_king, color)
+                    && !self.is_threatened(right_of_king.next_right(), color)
             }
         }
     }
