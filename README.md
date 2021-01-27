@@ -139,8 +139,11 @@ fn main() {
         }
 
         GameResult::Victory(winner) => {
-            // You can use the ! operator on a player's color to invert.
-            println!("{} loses. {} is victorious.", !winner, winner);
+            // You can use the ! operator on a player's
+            // color to invert.
+            println!("{} loses. {} is victorious.",
+              !winner, winner
+            );
         }
 
         GameResult::IllegalMove(x) => {
