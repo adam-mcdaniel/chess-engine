@@ -26,7 +26,7 @@ As you can see with a little experimentation, it works quite well.
 
 #### Average AI
 
-##### Keep in mind, this is at a low setting for speed in the browser.
+##### Keep in mind, this is at a low difficulty setting for speed in the browser.
 
 <embed type="text/html" src="https://adam-mcdaniel.github.io/chess-engine/examples/chess-web/chess-best.html" width="500" height="500"/>
 
