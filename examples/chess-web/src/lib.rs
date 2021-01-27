@@ -144,7 +144,7 @@ impl container::StyleSheet for ChessBoardStyle {
     fn style(&self) -> container::Style {
         container::Style {
             border_color: iced::Color::BLACK,
-            border_width: 10.0,
+            border_width: 0.0,
             border_radius: 0.0,
             ..container::Style::default()
         }
@@ -306,7 +306,7 @@ impl Sandbox for ChessBoard {
             }
         }
         
-        result.into()
+        // result.into()
         // Container::new(result)
         //     .style(ChessBoardStyle)
         //     .width(Length::Shrink)
@@ -356,11 +356,11 @@ impl Sandbox for ChessBoard {
         //     }
         // }
         
-        // Container::new(result)
-        //     .style(ChessBoardStyle)
-        //     .width(Length::Shrink)
-        //     .height(Length::Shrink)
-        //     .padding(1)
-        //     .into()
+        Container::new(result)
+            .style(ChessBoardStyle)
+            .width(Length::Shrink)
+            .height(Length::Shrink)
+            .padding(1)
+            .into()
     }
 }
