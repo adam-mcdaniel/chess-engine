@@ -32,7 +32,7 @@ lazy_static! {
     static ref STARTING_BOARD: Mutex<Board> = Mutex::new(Board::default());
 }
 
-const SQUARE_SIZE: u16 = 48;
+const SQUARE_SIZE: u16 = 52;
 // pub const AI_DEPTH: i32 = if cfg!(debug_assertions) {2} else {3};
 pub const AI_DEPTH: i32 = 2;
 
@@ -144,7 +144,6 @@ impl container::StyleSheet for ChessBoardStyle {
     fn style(&self) -> container::Style {
         container::Style {
             border_color: iced::Color::BLACK,
-            border_width: 10.0,
             border_radius: 0.0,
             ..container::Style::default()
         }
@@ -311,7 +310,6 @@ impl Sandbox for ChessBoard {
             .style(ChessBoardStyle)
             .width(Length::Shrink)
             .height(Length::Shrink)
-            .padding(10)
             .into()
     }
 }
