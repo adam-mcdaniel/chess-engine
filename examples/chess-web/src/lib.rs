@@ -293,6 +293,8 @@ impl Sandbox for ChessBoard {
                         .height(Length::Units((SQUARE_SIZE as f32/1.5) as u16))
                         .size((SQUARE_SIZE as f32/1.2) as u16)
                 )
+                .min_height(SQUARE_SIZE as u32)
+                .min_width(SQUARE_SIZE as u32)
                 .height(Length::Units(SQUARE_SIZE))
                 .width(Length::Units(SQUARE_SIZE))
                 .on_press(Message::SelectSquare(pos))
