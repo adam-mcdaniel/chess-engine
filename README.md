@@ -131,7 +131,7 @@ fn main() {
             .piece(Piece::Pawn(WHITE, G5))
             .piece(Piece::Pawn(WHITE, B5))
             .piece(Piece::Pawn(WHITE, C5))
-            .build()
+            .build();
 
     // The CPU can also play variants!
     let cpu_move = board.get_best_next_move(3);
