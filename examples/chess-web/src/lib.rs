@@ -17,8 +17,8 @@ pub fn run(get_cpu_move: fn(&Board) -> Move, starting_board: Board) -> iced::Res
     ChessBoard::run(Settings {
         window: iced::window::Settings {
             size: (
-                (SQUARE_SIZE * 8) as u32,
-                (SQUARE_SIZE * 8) as u32
+                (SQUARE_WIDTH * 8) as u32,
+                (SQUARE_HEIGHT * 8) as u32
             ),
             resizable: false,
             ..iced::window::Settings::default()
@@ -32,7 +32,8 @@ lazy_static! {
     static ref STARTING_BOARD: Mutex<Board> = Mutex::new(Board::default());
 }
 
-const SQUARE_SIZE: u16 = 48;
+const SQUARE_WIDTH: u16 = 48;
+const SQUARE_HEIGHT: u16 = 54;
 pub const AI_DEPTH: i32 = if cfg!(debug_assertions) {2} else {3};
 
 pub fn best_move(board: &Board) -> Move {
@@ -287,12 +288,14 @@ impl Sandbox for ChessBoard {
                     Text::new(text)
                         .horizontal_alignment(HorizontalAlignment::Center)
                         .vertical_alignment(VerticalAlignment::Center)
-                        .width(Length::Units((SQUARE_SIZE as f32/1.5) as u16))
-                        .height(Length::Units((SQUARE_SIZE as f32/1.5) as u16))
-                        .size((SQUARE_SIZE as f32/1.2) as u16)
+                        .width(Length::Units((SQUARE_WIDTH as f32/1.5) as u16))
+                        .height(Length::Units((SQUARE_WIDTH as f32/1.5) as u16))
+                        .size((SQUARE_WIDTH as f32/1.2) as u16)
                 )
-                .width(Length::Units(SQUARE_SIZE))
-                .height(Length::Units((SQUARE_SIZE as f32 * 1.1) as u16))
+                .min_width(SQUARE_WIDTH as u32)
+                .min_height(SQUARE_HEIGHT as u32)
+                .width(Length::Units(SQUARE_WIDTH))
+                .height(Length::Units(SQUARE_HEIGHT))
                 .on_press(Message::SelectSquare(pos))
                 .style(ChessSquare::from((pos, color, self.from_square == Some(pos))))
             );
