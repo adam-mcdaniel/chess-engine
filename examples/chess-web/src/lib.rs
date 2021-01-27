@@ -265,12 +265,8 @@ impl Sandbox for ChessBoard {
     }
 
     fn view(&mut self) -> Element<Message> {
-        let mut result = Column::new().spacing(0).align_items(Align::Center)
-            .width(Length::Shrink)
-            .height(Length::Shrink);
-        let mut row = Row::new().spacing(0).align_items(Align::Center)
-            .width(Length::Shrink)
-            .height(Length::Shrink);
+        let mut result = Column::new().spacing(0).align_items(Align::Center);
+        let mut row = Row::new().spacing(0).align_items(Align::Center);
         let mut i = 0;
 
         let is_white = self.board.get_current_player_color() == WHITE;
@@ -293,8 +289,8 @@ impl Sandbox for ChessBoard {
                     Text::new(text)
                         .horizontal_alignment(HorizontalAlignment::Center)
                         .vertical_alignment(VerticalAlignment::Center)
-                        // .width(Length::Units((SQUARE_SIZE as f32/1.5) as u16))
-                        // .height(Length::Units((SQUARE_SIZE as f32/1.5) as u16))
+                        .width(Length::Units((SQUARE_SIZE as f32/1.5) as u16))
+                        .height(Length::Units((SQUARE_SIZE as f32/1.5) as u16))
                         .size((SQUARE_SIZE as f32/1.2) as u16)
                 )
                 .min_height(SQUARE_SIZE as u32)
@@ -308,9 +304,7 @@ impl Sandbox for ChessBoard {
 
             if i % 8 == 0 {
                 result = result.push(row);
-                row = Row::new().spacing(0).align_items(Align::Center)
-                    .width(Length::Shrink)
-                    .height(Length::Shrink);
+                row = Row::new().spacing(0).align_items(Align::Center);
             }
         }
         
@@ -318,6 +312,7 @@ impl Sandbox for ChessBoard {
             .style(ChessBoardStyle)
             .width(Length::Shrink)
             .height(Length::Shrink)
+            .padding(10)
             .into()
     }
 }
