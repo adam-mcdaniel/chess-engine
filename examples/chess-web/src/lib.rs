@@ -2,7 +2,7 @@ use iced::{button, container, Container, Align, Length, HorizontalAlignment, Ver
 use rand::{thread_rng, seq::SliceRandom};
 use lazy_static::lazy_static;
 
-use std::sync::Mutex;
+use std::{sync::Mutex, thread::sleep_ms};
 use chess_engine::*;
 pub use chess_engine::Board;
 
@@ -17,8 +17,8 @@ pub fn run(get_cpu_move: fn(&Board) -> Move, starting_board: Board) -> iced::Res
     ChessBoard::run(Settings {
         window: iced::window::Settings {
             size: (
-                (SQUARE_WIDTH * 8) as u32,
-                (SQUARE_HEIGHT * 8) as u32
+                (SQUARE_SIZE * 8) as u32,
+                (SQUARE_SIZE * 8) as u32
             ),
             resizable: false,
             ..iced::window::Settings::default()
@@ -32,9 +32,9 @@ lazy_static! {
     static ref STARTING_BOARD: Mutex<Board> = Mutex::new(Board::default());
 }
 
-const SQUARE_WIDTH: u16 = 48;
-const SQUARE_HEIGHT: u16 = 54;
-pub const AI_DEPTH: i32 = if cfg!(debug_assertions) {2} else {3};
+const SQUARE_SIZE: u16 = 48;
+// pub const AI_DEPTH: i32 = if cfg!(debug_assertions) {2} else {3};
+pub const AI_DEPTH: i32 = 2;
 
 pub fn best_move(board: &Board) -> Move {
     board.get_best_next_move(AI_DEPTH).0
@@ -279,7 +279,8 @@ impl Sandbox for ChessBoard {
             let pos = Position::new(r, c);
 
             let (text, color) = if let Some(piece) = self.board.get_piece(pos) {
-                (piece.with_color(WHITE).to_string(), piece.get_color())
+                let c = piece.get_color();
+                (piece.with_color(!c).to_string(), c)
             } else {
                 (String::from(" "), WHITE)
             };
@@ -288,14 +289,13 @@ impl Sandbox for ChessBoard {
                     Text::new(text)
                         .horizontal_alignment(HorizontalAlignment::Center)
                         .vertical_alignment(VerticalAlignment::Center)
-                        .width(Length::Units((SQUARE_WIDTH as f32/1.5) as u16))
-                        .height(Length::Units((SQUARE_WIDTH as f32/1.5) as u16))
-                        .size((SQUARE_WIDTH as f32/1.2) as u16)
+                        .width(Length::Units((SQUARE_SIZE as f32/1.5) as u16))
+                        .height(Length::Units((SQUARE_SIZE as f32/1.5) as u16))
+                        .size((SQUARE_SIZE as f32/1.2) as u16)
                 )
-                .min_width(SQUARE_WIDTH as u32)
-                .min_height(SQUARE_HEIGHT as u32)
-                .width(Length::Units(SQUARE_WIDTH))
-                .height(Length::Units(SQUARE_HEIGHT))
+                .height(Length::Units(SQUARE_SIZE))
+                .width(Length::Units(SQUARE_SIZE))
+                .height(Length::Units(SQUARE_SIZE))
                 .on_press(Message::SelectSquare(pos))
                 .style(ChessSquare::from((pos, color, self.from_square == Some(pos))))
             );
@@ -311,7 +311,7 @@ impl Sandbox for ChessBoard {
             .style(ChessBoardStyle)
             .width(Length::Shrink)
             .height(Length::Shrink)
-            .padding(1)
+            .padding(10)
             .into()
     }
 }
