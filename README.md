@@ -35,7 +35,7 @@ Above all, [this video](https://www.youtube.com/watch?v=DpXy041BIlA&t=7s) by [To
 
 I love chess a _lot_. It's definitely one of my favorite games ever. However, I've always been disappointed when trying to play chess digitally. Although wonderful websites like [chess.com](https://chess.com/) and [lichess](https://lichess.org/) exist, it's near impossible to find something that runs on everything.
 
-chess-engine is a solution to my problem. If you want a chess engine that runs on embedded devices, the terminal, [the desktop (with a gui)](https://github.com/adam-mcdaniel/chess-engine/tree/main/examples/gui), _and_ [the web](https://adam-mcdaniel.github.io/chess-engine/docs/book/index.html#average-ai), this is probably your best bet.
+chess-engine is a solution to my problem. If you want a chess engine that runs on embedded devices, the terminal, [the desktop (with a gui)](https://github.com/adam-mcdaniel/chess-engine/tree/main/examples/chess-gui), _and_ [the web](https://adam-mcdaniel.github.io/chess-engine/docs/book/index.html#average-ai), this is probably your best bet.
 
 ## How does it work?
 
