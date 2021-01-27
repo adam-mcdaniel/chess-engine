@@ -122,6 +122,14 @@ impl Position {
         }
     }
 
+    /// Create a `Position` from its respective row or column number.
+    /// The row and column numbers can be any of 0, 1, 2, 3, 4, 5, 6, or 7.
+    /// 
+    /// Examples:
+    /// - `A1 = Position::new(0, 0)`
+    /// - `A8 = Position::new(7, 0)`
+    /// - `H1 = Position::new(0, 7)`
+    /// - `H8 = Position::new(7, 7)`
     #[inline]
     pub const fn new(row: i32, col: i32) -> Self {
         Self { row, col }
@@ -158,16 +166,20 @@ impl Position {
         }
     }
 
+    /// Is this position a valid spot on the board?
     #[inline]
     pub fn is_on_board(&self) -> bool {
         !self.is_off_board()
     }
 
+    /// Is this position NOT a valid spot on the board?
     #[inline]
     pub fn is_off_board(&self) -> bool {
         self.row < 0 || self.row > 7 || self.col < 0 || self.col > 7
     }
 
+    /// Get the row number of the position.
+    /// This can be any of 0, 1, 2, 3, 4, 5, 6, or 7.
     #[inline]
     pub fn get_row(&self) -> i32 {
         self.row
@@ -192,6 +204,7 @@ impl Position {
         result
     }
 
+    /// Is this position diagonal to another position?
     #[inline]
     pub fn is_diagonal_to(&self, other: Self) -> bool {
         // Algorithm for determining whether or not two squares are diagonal
@@ -199,21 +212,29 @@ impl Position {
         (self.col - other.col).abs() == (self.row - other.row).abs()
     }
 
+    /// Get the diagonal distance between two positions
     #[inline]
     fn diagonal_distance(&self, other: Self) -> i32 {
         (self.col - other.col).abs()
     }
-
+    
+    /// Is this position orthogonal to another position?
     #[inline]
     pub fn is_orthogonal_to(&self, other: Self) -> bool {
         (self.col == other.col) || (self.row == other.row)
     }
 
+    /// Get the orthogonal distance between two positions
     #[inline]
     fn orthogonal_distance(&self, other: Self) -> i32 {
         (self.col - other.col).abs() + (self.row - other.row).abs()
     }
 
+    /// Is this position adjacent to another position?
+    /// 
+    /// Adjacent positions have either:
+    /// 1. A diagonal distance of one from each other
+    /// 2. An orthogonal distance of one from each other
     #[inline]
     pub fn is_adjacent_to(&self, other: Self) -> bool {
         if self.is_orthogonal_to(other) {
@@ -225,36 +246,73 @@ impl Position {
         }
     }
 
+    /// Is this position beneath another position on the board?
+    /// Pieces "beneath" other pieces on the board have lower ranks.
+    /// 
+    /// So, for example, A7 is below A8.
     #[inline]
     pub fn is_below(&self, other: Self) -> bool {
         self.row < other.row
     }
 
+    /// Is this position above another position on the board?
+    /// Pieces "above" other pieces on the board have higher ranks.
+    /// 
+    /// So, for example, A8 is above A8.
     #[inline]
     pub fn is_above(&self, other: Self) -> bool {
         self.row > other.row
     }
 
+    /// Is this position left of another position on the board?
+    /// Pieces "left of" other pieces on the board have a lower
+    /// lexigraphical column character.
+    /// 
+    /// So, for example, A8 is left of B8.
     #[inline]
     pub fn is_left_of(&self, other: Self) -> bool {
         self.col < other.col
     }
 
+    /// Is this position right of another position on the board?
+    /// Pieces "right of" other pieces on the board have a higher
+    /// lexigraphical column character.
+    /// 
+    /// So, for example, B8 is right of A8.
     #[inline]
     pub fn is_right_of(&self, other: Self) -> bool {
         self.col > other.col
     }
 
+    /// Get the position directly below this position.
+    /// 
+    /// IMPORTANT NOTE: This will NOT check for positions
+    /// off of the board! You could easily get an invalid
+    /// position if you do not check with the `is_on_board`
+    /// method!
     #[inline]
     pub fn next_below(&self) -> Self {
         Self::new(self.row - 1, self.col)
     }
 
+    /// Get the position directly above this position.
+    /// 
+    /// IMPORTANT NOTE: This will NOT check for positions
+    /// off of the board! You could easily get an invalid
+    /// position if you do not check with the `is_on_board`
+    /// method!
     #[inline]
     pub fn next_above(&self) -> Self {
         Self::new(self.row + 1, self.col)
     }
 
+    /// Get the next square upwards from a respective player's
+    /// pawn.
+    /// 
+    /// IMPORTANT NOTE: This will NOT check for positions
+    /// off of the board! You could easily get an invalid
+    /// position if you do not check with the `is_on_board`
+    /// method!
     #[inline]
     pub fn pawn_up(&self, ally_color: Color) -> Self {
         match ally_color {
@@ -263,21 +321,41 @@ impl Position {
         }
     }
 
+    /// Get the next square backwards from a respective player's
+    /// pawn.
+    /// 
+    /// IMPORTANT NOTE: This will NOT check for positions
+    /// off of the board! You could easily get an invalid
+    /// position if you do not check with the `is_on_board`
+    /// method!
     #[inline]
     pub fn pawn_back(&self, ally_color: Color) -> Self {
         self.pawn_up(!ally_color)
     }
-
+    
+    /// Get the position directly left of this position.
+    /// 
+    /// IMPORTANT NOTE: This will NOT check for positions
+    /// off of the board! You could easily get an invalid
+    /// position if you do not check with the `is_on_board`
+    /// method!
     #[inline]
     pub fn next_left(&self) -> Self {
         Self::new(self.row, self.col - 1)
     }
 
+    /// Get the position directly right of this position.
+    /// 
+    /// IMPORTANT NOTE: This will NOT check for positions
+    /// off of the board! You could easily get an invalid
+    /// position if you do not check with the `is_on_board`
+    /// method!
     #[inline]
     pub fn next_right(&self) -> Self {
         Self::new(self.row, self.col + 1)
     }
 
+    /// Is this pawn on the starting rank for the respective player?
     #[inline]
     pub fn is_starting_pawn(&self, color: Color) -> bool {
         match color {
@@ -286,16 +364,22 @@ impl Position {
         }
     }
 
+    /// Is this the starting position of the kingside rook?
     #[inline]
     pub fn is_kingside_rook(&self) -> bool {
         (self.row == 0 || self.row == 7) && self.col == 7
     }
-
+    
+    /// Is this the starting position of the queenside rook?
     #[inline]
     pub fn is_queenside_rook(&self) -> bool {
         (self.row == 0 || self.row == 7) && self.col == 0
     }
 
+    /// Get the list of positions from this position to another
+    /// position, moving diagonally.
+    /// 
+    /// This does _not_ include the `from` position, and includes the `to` position.
     pub fn diagonals_to(&self, to: Self) -> Vec<Self> {
         if !self.is_diagonal_to(to) {
             return Vec::new();
@@ -325,6 +409,10 @@ impl Position {
         result
     }
 
+    /// Get the list of positions from this position to another
+    /// position, moving orthogonally.
+    /// 
+    /// This does _not_ include the `from` position, and includes the `to` position.
     pub fn orthogonals_to(&self, to: Self) -> Vec<Self> {
         if !self.is_orthogonal_to(to) {
             return Vec::new();

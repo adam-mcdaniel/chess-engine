@@ -381,10 +381,18 @@ impl Board {
         white + &black
     }
 
+    /// Get the color of the current player
+    #[inline]
+    pub fn get_turn_color(&self) -> Color {
+        self.turn
+    }
+
+    /// Get the position of the En-Passant square
     pub fn get_en_passant(&self) -> Option<Position> {
         self.en_passant
     }
 
+    /// Remove all of the pieces for a given player
     pub fn remove_all(&self, color: Color) -> Self {
         let mut result = *self;
         for square in &mut result.squares {
@@ -398,6 +406,7 @@ impl Board {
         result
     }
 
+    /// Convert all of a given players pieces to queens
     pub fn queen_all(&self, color: Color) -> Self {
         let mut result = *self;
         for square in &mut result.squares {
@@ -411,6 +420,7 @@ impl Board {
         result
     }
 
+    /// Make the game a certain player's turn
     #[inline]
     pub fn set_turn(&self, color: Color) -> Self {
         let mut result = *self;
@@ -418,6 +428,7 @@ impl Board {
         result
     }
 
+    /// Get the value of the material advantage of a certain player
     #[inline]
     pub fn get_material_advantage(&self, color: Color) -> i32 {
         self.squares
@@ -436,11 +447,6 @@ impl Board {
     }
 
     #[inline]
-    pub fn get_turn_color(&self) -> Color {
-        self.turn
-    }
-
-    #[inline]
     fn get_square(&mut self, pos: Position) -> &mut Square {
         &mut self.squares[((7 - pos.get_row()) * 8 + pos.get_col()) as usize]
     }
@@ -451,6 +457,7 @@ impl Board {
         *self.get_square(pos) = Square::from(piece);
     }
 
+    /// Does a square have any piece?
     #[inline]
     pub fn get_piece(&self, pos: Position) -> Option<Piece> {
         if pos.is_off_board() {
@@ -459,6 +466,7 @@ impl Board {
         self.squares[((7 - pos.get_row()) * 8 + pos.get_col()) as usize].get_piece()
     }
 
+    /// Does a square have an ally piece?
     #[inline]
     pub fn has_ally_piece(&self, pos: Position, ally_color: Color) -> bool {
         if let Some(piece) = self.get_piece(pos) {
@@ -510,6 +518,7 @@ impl Board {
         king_pos
     }
 
+    /// Is a square threatened by an enemy piece?
     pub fn is_threatened(&self, pos: Position, ally_color: Color) -> bool {
         for (i, square) in self.squares.iter().enumerate() {
             let row = 7 - i / 8;
@@ -582,6 +591,7 @@ impl Board {
         result
     }
 
+    /// Can a given player castle kingside?
     pub fn can_kingside_castle(&self, color: Color) -> bool {
         match color {
             WHITE => {
@@ -601,6 +611,7 @@ impl Board {
         }
     }
 
+    /// Can a given player castle queenside?
     pub fn can_queenside_castle(&self, color: Color) -> bool {
         match color {
             WHITE => {
@@ -649,7 +660,8 @@ impl Board {
             Move::Resign => true,
         }
     }
-
+    
+    /// Does the respective player have sufficient material?
     pub fn has_sufficient_material(&self, color: Color) -> bool {
         let mut pieces = vec![];
         for square in &self.squares {
@@ -687,21 +699,25 @@ impl Board {
         }
     }
 
+    /// Does the respective player have insufficient material?
     #[inline]
     pub fn has_insufficient_material(&self, color: Color) -> bool {
         !self.has_sufficient_material(color)
     }
 
+    /// Is the current player in stalemate?
     pub fn is_stalemate(&self) -> bool {
         (self.get_legal_moves().is_empty() && !self.is_in_check(self.get_current_player_color()))
             || (self.has_insufficient_material(self.turn)
                 && self.has_insufficient_material(!self.turn))
     }
 
+    /// Is the current player in checkmate?
     pub fn is_checkmate(&self) -> bool {
         self.is_in_check(self.get_current_player_color()) && self.get_legal_moves().is_empty()
     }
 
+    /// Change the current turn to the next player.
     #[inline]
     pub fn change_turn(mut self) -> Self {
         self.turn = !self.turn;
@@ -757,6 +773,7 @@ impl Board {
         }
     }
 
+    /// Play a move and confirm it is legal.
     pub fn play_move(&self, m: Move) -> GameResult {
         let current_color = self.get_turn_color();
 
