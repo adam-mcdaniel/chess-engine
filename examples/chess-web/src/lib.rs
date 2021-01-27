@@ -307,8 +307,6 @@ impl Sandbox for ChessBoard {
         
         Container::new(result)
             .style(ChessBoardStyle)
-            .width(Length::Shrink)
-            .height(Length::Shrink)
             .into()
     }
 }
