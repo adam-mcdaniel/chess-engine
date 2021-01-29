@@ -35,7 +35,7 @@
 
 Above all, [this video](https://www.youtube.com/watch?v=DpXy041BIlA&t=7s) by [Tom7](http://tom7.org/) is my inspiration for this project. He's absolutely brilliant and I implore you to watch his content.
 
-I love chess a _lot_. It's definitely one of my favorite games ever. However, I've always been disappointed when trying to write programs that play chess digitally (particularly in a compiled language). Although several amazing engines exist exist, it's near impossible to find a neat library for chess-related-programming that runs on everything.
+I love chess a _lot_. It's definitely one of my favorite games ever. However, I've always been disappointed when trying to write programs that play chess digitally (particularly in a compiled language). Although several amazing engines exist, it's near impossible to find a neat library for chess-related-programming that runs on everything.
 
 chess-engine is a solution to my problem. If you want a chess engine that runs on embedded devices, the terminal, [the desktop (with a gui)](https://github.com/adam-mcdaniel/chess-engine/tree/main/examples/chess-gui), _and_ [the web](https://adam-mcdaniel.github.io/chess-engine/docs/book/index.html#average-ai), this is probably your best bet.
 
