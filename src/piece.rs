@@ -171,7 +171,7 @@ impl core::fmt::Display for Piece {
                     Self::Rook(_, _) => "♜",
                     Self::Knight(_, _) => "♞",
                     Self::Bishop(_, _) => "♝",
-                    Self::Pawn(_, _) => "♟︎",
+                    Self::Pawn(_, _) => "♟",
                 },
             }
         )
