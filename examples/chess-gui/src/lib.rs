@@ -33,7 +33,18 @@ lazy_static! {
 }
 
 const SQUARE_SIZE: u16 = 48;
-pub const AI_DEPTH: i32 = if cfg!(debug_assertions) {2} else {3};
+pub const AI_DEPTH: i32 = if cfg!(debug_assertions) {2} else {4};
+
+pub fn get_symbol(piece: &Piece) -> impl ToString {
+	match piece {
+		Piece::King(_, _) => "K",
+		Piece::Queen(_, _) => "Q",
+		Piece::Rook(_, _) => "R",
+		Piece::Bishop(_, _) => "B",
+		Piece::Knight(_, _) => "N",
+		Piece::Pawn(_, _) => "P",
+	}
+}
 
 pub fn best_move(board: &Board) -> Move {
     board.get_best_next_move(AI_DEPTH).0
@@ -278,7 +289,7 @@ impl Sandbox for ChessBoard {
             let pos = Position::new(r, c);
 
             let (text, color) = if let Some(piece) = self.board.get_piece(pos) {
-                (piece.with_color(WHITE).to_string(), piece.get_color())
+                (get_symbol(&piece).to_string(), piece.get_color())
             } else {
                 (String::from(" "), WHITE)
             };
