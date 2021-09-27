@@ -154,7 +154,7 @@ impl TryFrom<String> for Move {
             "queenside castle" | "castle queenside" | "O-O-O" | "0-0-0" | "o-o-o" => {
                 Self::QueenSideCastle
             }
-            "kingside castle" | "castle kingside" | "O-O" | "0-0" | "o-o" => Self::QueenSideCastle,
+            "kingside castle" | "castle kingside" | "O-O" | "0-0" | "o-o" => Self::KingSideCastle,
             other => {
                 let words = other.split_whitespace().collect::<Vec<&str>>();
 
