@@ -662,15 +662,10 @@ impl Board {
     }
 
     pub(crate) fn is_legal_move(&self, m: Move, player_color: Color) -> bool {
-        if let Move::Promotion(_, _, promotion) = m {
-            if promotion.is_king() || promotion.is_pawn() {
-                return false;
-            }
-        }
         match m {
             Move::KingSideCastle => self.can_kingside_castle(player_color),
             Move::QueenSideCastle => self.can_queenside_castle(player_color),
-            Move::Piece(from, to) | Move::Promotion(from, to, _) => match self.get_piece(from) {
+            Move::Piece(from, to) => match self.get_piece(from) {
                 Some(Piece::Pawn(c, pos)) => {
                     let piece = Piece::Pawn(c, pos);
                     ((if let Some(en_passant) = self.en_passant {
@@ -690,6 +685,21 @@ impl Board {
                 }
                 _ => false,
             },
+            Move::Promotion(from, to, promotion) => {
+                match self.get_piece(from) {
+                    Some(piece) => {
+                        // promotion specific checks
+                        piece.is_pawn()
+                            && (to.get_row() == 0 || to.get_row() == 7)
+                            && !(promotion.is_king() || promotion.is_pawn())
+                            // regular piece checks
+                            && piece.is_legal_move(to, self)
+                            && piece.get_color() == player_color
+                            && !self.apply_move(m).is_in_check(player_color)
+                    }
+                    _ => false,
+                }
+            }
             Move::Resign => true,
         }
     }
