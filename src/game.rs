@@ -6,12 +6,17 @@ use crate::position::Position;
 use crate::{Color, Evaluate, GameResult, Move};
 
 pub enum GameAction {
+    // accept draw if previous action was OfferDraw
     AcceptDraw,
+    // make move, using san notation
     MakeMove(String),
+    // make move and offer draw, using san notiation
     OfferDraw(String),
+    // resign
     Resign,
 }
 
+// convenience for most common action (MakeMove)
 impl From<&str> for GameAction {
     fn from(move_str: &str) -> GameAction {
         GameAction::MakeMove(String::from(move_str))
@@ -20,8 +25,11 @@ impl From<&str> for GameAction {
 
 #[derive(Debug, PartialEq)]
 pub enum GameError {
+    // when san move has multiple options
     AmbiguousMove,
+    // no more actions allowed once game is over
     GameAlreadyOver,
+    // unable to parse move for current turn
     InvalidMove,
 }
 
@@ -36,6 +44,9 @@ pub enum GameOver {
 }
 
 // wrapper around chess_engine::Board
+//
+// abstractions for two player games, like offering/accepting a draw.
+// status is Some when the game is over.
 #[derive(Default)]
 pub struct Game {
     pub board: Board,
@@ -44,10 +55,12 @@ pub struct Game {
 }
 
 impl Game {
+    // convenience accessor for board.get_turn_color
     pub fn get_turn_color(&self) -> Color {
         self.board.get_turn_color()
     }
 
+    // make a move for current turn
     pub fn make_move(&mut self, action: &GameAction) -> Result<&Option<GameOver>, GameError> {
         if self.status.is_some() {
             return Err(GameError::GameAlreadyOver {});
@@ -60,6 +73,7 @@ impl Game {
         }
     }
 
+    // accept draw if previous move was OfferDraw
     fn accept_draw(&mut self) -> Result<&Option<GameOver>, GameError> {
         if let Some(color) = self.draw_offered {
             if color != self.get_turn_color() {
@@ -70,6 +84,7 @@ impl Game {
         Err(GameError::InvalidMove {})
     }
 
+    // move a piece and optionally offer a draw
     fn move_piece(
         &mut self,
         movestr: &str,
@@ -98,6 +113,7 @@ impl Game {
         Ok(&self.status)
     }
 
+    // resign
     fn resign(&mut self) -> Result<&Option<GameOver>, GameError> {
         self.status = match self.get_turn_color() {
             Color::Black => Some(GameOver::BlackResigns),
@@ -107,6 +123,14 @@ impl Game {
     }
 }
 
+// parse Short Algebraic Notation (SAN)
+//
+// returns Err(AmbiguousMove) if there are multiple possibilities
+// e.g. "Nxc4" when there are N at e2 and d6
+// the move should instead specify which N ("Nexc4" or "Ne2xc4")
+//
+// returns Err(InvalidMove) if there is a parse error or the move is
+// not valid based on the current board position and turn.
 fn parse_san_move(board: &Board, move_str: &str) -> Result<Move, GameError> {
     if move_str == "0-0" {
         return Ok(Move::KingSideCastle {});
@@ -130,6 +154,7 @@ fn parse_san_move(board: &Board, move_str: &str) -> Result<Move, GameError> {
         _ => None,
     };
     if move_promotion.is_some() {
+        // there is a move promotion, move to next char for parsing
         last = chars.next_back();
     }
 
@@ -215,7 +240,6 @@ fn parse_san_move(board: &Board, move_str: &str) -> Result<Move, GameError> {
 
     match candidates.len() {
         0 => Err(GameError::InvalidMove {}),
-        // todo, use move_promotion
         1 => {
             let move_from = candidates[0].get_pos();
             match move_promotion {
