@@ -524,7 +524,10 @@ impl Board {
             let row = 7 - i / 8;
             let col = i % 8;
             let square_pos = Position::new(row as i32, col as i32);
-            if !square_pos.is_orthogonal_to(pos) && !square_pos.is_diagonal_to(pos) && !square_pos.is_knight_move(pos) {
+            if !square_pos.is_orthogonal_to(pos)
+                && !square_pos.is_diagonal_to(pos)
+                && !square_pos.is_knight_move(pos)
+            {
                 continue;
             }
 
@@ -552,7 +555,7 @@ impl Board {
         }
     }
 
-    fn move_piece(&self, from: Position, to: Position) -> Self {
+    fn move_piece(&self, from: Position, to: Position, promotion: Option<Piece>) -> Self {
         let mut result = *self;
         result.en_passant = None;
 
@@ -565,7 +568,21 @@ impl Board {
             *from_square = EMPTY_SQUARE;
 
             if piece.is_pawn() && (to.get_row() == 0 || to.get_row() == 7) {
-                piece = Piece::Queen(piece.get_color(), piece.get_pos());
+                piece = match promotion {
+                    // promotion only required to specify piece type
+                    Some(promotion) => {
+                        if promotion.is_king() || promotion.is_pawn() {
+                            // invalid promotion, use default
+                            Piece::Queen(piece.get_color(), piece.get_pos())
+                        } else {
+                            promotion
+                                .with_color(piece.get_color())
+                                .move_to(piece.get_pos())
+                        }
+                    }
+                    // queen by default
+                    None => Piece::Queen(piece.get_color(), piece.get_pos()),
+                }
             }
 
             if piece.is_starting_pawn() && (from.get_row() - to.get_row()).abs() == 2 {
@@ -598,7 +615,8 @@ impl Board {
             WHITE => {
                 self.has_no_piece(Position::new(0, 5))
                     && self.has_no_piece(Position::new(0, 6))
-                    && self.get_piece(Position::new(0, 7)) == Some(Piece::Rook(color, Position::new(0, 7)))
+                    && self.get_piece(Position::new(0, 7))
+                        == Some(Piece::Rook(color, Position::new(0, 7)))
                     && self.white_castling_rights.can_kingside_castle()
                     && !self.is_in_check(color)
                     && !self.is_threatened(right_of_king, color)
@@ -607,7 +625,8 @@ impl Board {
             BLACK => {
                 self.has_no_piece(Position::new(7, 5))
                     && self.has_no_piece(Position::new(7, 6))
-                    && self.get_piece(Position::new(7, 7)) == Some(Piece::Rook(color, Position::new(7, 7)))
+                    && self.get_piece(Position::new(7, 7))
+                        == Some(Piece::Rook(color, Position::new(7, 7)))
                     && self.black_castling_rights.can_kingside_castle()
                     && !self.is_in_check(color)
                     && !self.is_threatened(right_of_king, color)
@@ -623,16 +642,18 @@ impl Board {
                 self.has_no_piece(Position::new(0, 1))
                     && self.has_no_piece(Position::new(0, 2))
                     && self.has_no_piece(Position::new(0, 3))
-                    && self.get_piece(Position::new(0, 0)) == Some(Piece::Rook(color, Position::new(0, 0)))
+                    && self.get_piece(Position::new(0, 0))
+                        == Some(Piece::Rook(color, Position::new(0, 0)))
                     && self.white_castling_rights.can_queenside_castle()
                     && !self.is_in_check(color)
                     && !self.is_threatened(Position::queen_pos(color), color)
-                }
+            }
             BLACK => {
                 self.has_no_piece(Position::new(7, 1))
                     && self.has_no_piece(Position::new(7, 2))
                     && self.has_no_piece(Position::new(7, 3))
-                    && self.get_piece(Position::new(7, 0)) == Some(Piece::Rook(color, Position::new(7, 0)))
+                    && self.get_piece(Position::new(7, 0))
+                        == Some(Piece::Rook(color, Position::new(7, 0)))
                     && self.black_castling_rights.can_queenside_castle()
                     && !self.is_in_check(color)
                     && !self.is_threatened(Position::queen_pos(color), color)
@@ -641,21 +662,25 @@ impl Board {
     }
 
     pub(crate) fn is_legal_move(&self, m: Move, player_color: Color) -> bool {
+        if let Move::Promotion(_, _, promotion) = m {
+            if promotion.is_king() || promotion.is_pawn() {
+                return false;
+            }
+        }
         match m {
             Move::KingSideCastle => self.can_kingside_castle(player_color),
             Move::QueenSideCastle => self.can_queenside_castle(player_color),
-            Move::Piece(from, to) => match self.get_piece(from) {
+            Move::Piece(from, to) | Move::Promotion(from, to, _) => match self.get_piece(from) {
                 Some(Piece::Pawn(c, pos)) => {
                     let piece = Piece::Pawn(c, pos);
                     ((if let Some(en_passant) = self.en_passant {
                         (en_passant == from.pawn_up(player_color).next_left()
                             || en_passant == from.pawn_up(player_color).next_right()
-                            && en_passant == to)
+                                && en_passant == to)
                             && c == player_color
                     } else {
                         false
-                    }) || piece.is_legal_move(to, self)
-                        && piece.get_color() == player_color)
+                    }) || piece.is_legal_move(to, self) && piece.get_color() == player_color)
                         && !self.apply_move(m).is_in_check(player_color)
                 }
                 Some(piece) => {
@@ -668,7 +693,7 @@ impl Board {
             Move::Resign => true,
         }
     }
-    
+
     /// Does the respective player have sufficient material?
     pub fn has_sufficient_material(&self, color: Color) -> bool {
         let mut pieces = vec![];
@@ -740,8 +765,8 @@ impl Board {
                         WHITE => Position::new(0, 7),
                         BLACK => Position::new(7, 7),
                     };
-                    self.move_piece(king_pos, rook_pos.next_left())
-                        .move_piece(rook_pos, king_pos.next_right())
+                    self.move_piece(king_pos, rook_pos.next_left(), None)
+                        .move_piece(rook_pos, king_pos.next_right(), None)
                 } else {
                     *self
                 }
@@ -752,15 +777,15 @@ impl Board {
                         WHITE => Position::new(0, 0),
                         BLACK => Position::new(7, 0),
                     };
-                    self.move_piece(king_pos, king_pos.next_left().next_left())
-                        .move_piece(rook_pos, king_pos.next_left())
+                    self.move_piece(king_pos, king_pos.next_left().next_left(), None)
+                        .move_piece(rook_pos, king_pos.next_left(), None)
                 } else {
                     *self
                 }
             }
 
             Move::Piece(from, to) => {
-                let mut result = self.move_piece(from, to);
+                let mut result = self.move_piece(from, to, None);
 
                 if let (Some(en_passant), Some(Piece::Pawn(player_color, _))) =
                     (self.en_passant, self.get_piece(from))
@@ -777,6 +802,7 @@ impl Board {
 
                 result
             }
+            Move::Promotion(from, to, promotion) => self.move_piece(from, to, Some(promotion)),
             Move::Resign => self.remove_all(self.turn).queen_all(!self.turn),
         }
     }

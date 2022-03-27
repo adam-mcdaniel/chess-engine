@@ -1,5 +1,7 @@
 use super::{Board, Color, Move, Position};
+use alloc::string::String;
 use alloc::vec::Vec;
+use core::convert::TryFrom;
 
 /// A piece on a board.
 ///
@@ -175,6 +177,24 @@ impl core::fmt::Display for Piece {
                 },
             }
         )
+    }
+}
+
+impl TryFrom<&str> for Piece {
+    type Error = String;
+
+    fn try_from(name: &str) -> Result<Self, Self::Error> {
+        let color = Color::Black;
+        let position = Position::new(-1, -1);
+        match name {
+            "king" => Ok(Self::King(color, position)),
+            "queen" => Ok(Self::Queen(color, position)),
+            "rook" => Ok(Self::Rook(color, position)),
+            "bishop" => Ok(Self::Bishop(color, position)),
+            "knight" => Ok(Self::Knight(color, position)),
+            "pawn" => Ok(Self::Pawn(color, position)),
+            _ => Err(String::from("invalid piece name")),
+        }
     }
 }
 

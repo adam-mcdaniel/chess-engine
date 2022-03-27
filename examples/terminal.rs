@@ -24,19 +24,21 @@ fn get_cpu_move(b: &Board, best: bool) -> Move {
 
     print!("CPU evaluated {} moves before choosing to ", count);
     match m {
-        Move::Piece(from, to) => match (b.get_piece(from), b.get_piece(to)) {
-            (Some(piece), Some(takes)) => println!(
-                "take {}({}) with {}({})",
-                takes.get_name(),
-                to,
-                piece.get_name(),
-                from
-            ),
-            (Some(piece), None) => {
-                println!("move {}({}) to {}", piece.get_name(), from, to)
+        Move::Piece(from, to) | Move::Promotion(from, to, _) => {
+            match (b.get_piece(from), b.get_piece(to)) {
+                (Some(piece), Some(takes)) => println!(
+                    "take {}({}) with {}({})",
+                    takes.get_name(),
+                    to,
+                    piece.get_name(),
+                    from
+                ),
+                (Some(piece), None) => {
+                    println!("move {}({}) to {}", piece.get_name(), from, to)
+                }
+                _ => println!("move {} to {}", from, to),
             }
-            _ => println!("move {} to {}", from, to),
-        },
+        }
         Move::KingSideCastle => {
             println!("castle kingside")
         }

@@ -11,6 +11,9 @@ use core::convert::TryFrom;
 mod board;
 pub use board::{Board, BoardBuilder};
 
+mod game;
+pub use game::{Game, GameAction, GameError, GameOver};
+
 mod square;
 pub use square::{Square, EMPTY_SQUARE};
 
@@ -108,7 +111,7 @@ pub enum Move {
     /// the F1 square. If the current player is black, however, move the king to the G8 square,
     /// and the kingside rook to the F8 square.
     KingSideCastle,
-    /// Move a piece from one square to another.
+    /// Move a piece from one square to another, with optional promotion.
     /// This can allow the player to capture another piece, by
     /// simply moving a piece to the position of an enemy piece.
     ///
@@ -121,6 +124,7 @@ pub enum Move {
     /// the allied pawn. After the one turn a player has to en-passant capture, the
     /// en-passant square is forgotten and can no longer be used.
     Piece(Position, Position),
+    Promotion(Position, Position, Piece),
     /// When played by another player, it awards victory to the other.
     Resign,
 }
@@ -164,9 +168,15 @@ impl TryFrom<String> for Move {
                         Position::pgn(&words[0][2..4])?,
                     )
                 } else if words.len() == 2 {
-                    Self::Piece(Position::pgn(&words[0])?, Position::pgn(&words[1])?)
+                    Self::Piece(Position::pgn(words[0])?, Position::pgn(words[1])?)
                 } else if words.len() == 3 && words[1] == "to" {
-                    Self::Piece(Position::pgn(&words[0])?, Position::pgn(&words[2])?)
+                    Self::Piece(Position::pgn(words[0])?, Position::pgn(words[2])?)
+                } else if words.len() == 4 && words[1] == "to" {
+                    let piece = Piece::try_from(words[3])?;
+                    if piece.is_king() || piece.is_pawn() {
+                        return Err(String::from("invalid promotion"));
+                    }
+                    Self::Promotion(Position::pgn(words[0])?, Position::pgn(words[2])?, piece)
                 } else {
                     return Err(format!("invalid move format `{}`", other));
                 }
@@ -204,6 +214,9 @@ impl core::fmt::Display for Move {
         match self {
             // Move::EnPassant(from) => write!(f, "ep {}", from),
             Move::Piece(from, to) => write!(f, "{} to {}", from, to),
+            Move::Promotion(from, to, piece) => {
+                write!(f, "{} to {} {}", from, to, piece.get_name())
+            }
             Move::KingSideCastle => write!(f, "O-O"),
             Move::QueenSideCastle => write!(f, "O-O-O"),
             Move::Resign => write!(f, "Resign"),
