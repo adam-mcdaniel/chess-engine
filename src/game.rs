@@ -253,8 +253,8 @@ fn parse_san_move(board: &Board, move_str: &str) -> Result<Move, GameError> {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use crate::*;
+    use crate::game::*;
+    use crate::position::*;
 
     #[test]
     fn test_parse_san_move() {
@@ -312,5 +312,24 @@ mod tests {
                 .expect(game_move);
         }
         assert_eq!(game.status, Some(GameOver::BlackCheckmates));
+    }
+
+    #[test]
+    fn test_promotion() {
+        let mut game = Game::default();
+        let game_moves = vec![
+            "e4", "d5", "exd5", "Nf6", "Bb5", "c6", "dxc6", "Qb6", "cxb7", "Qxb5",
+            // bxc8Q is checkmate, but want to test non-queen promotion
+            "bxc8R",
+        ];
+        for game_move in game_moves {
+            game.make_move(&GameAction::from(game_move))
+                .expect(game_move);
+        }
+        assert_eq!(game.status, None);
+        assert_eq!(
+            game.board.get_piece(Position::pgn("c8").unwrap()),
+            Some(Piece::Rook(Color::White, Position::pgn("c8").unwrap()))
+        )
     }
 }
