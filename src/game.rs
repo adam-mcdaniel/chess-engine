@@ -1,7 +1,7 @@
 use alloc::string::String;
 
 use crate::board::Board;
-use crate::util::parse_san_move;
+use crate::util::{format_fen, parse_fen, parse_san_move};
 use crate::{Color, GameResult};
 
 pub enum GameAction {
@@ -30,6 +30,8 @@ pub enum GameError {
     GameAlreadyOver,
     // unable to parse move for current turn
     InvalidMove,
+    // unable to parse position
+    InvalidPosition,
 }
 
 #[derive(Debug, PartialEq)]
@@ -54,6 +56,28 @@ pub struct Game {
 }
 
 impl Game {
+    pub fn from_fen(
+        fen: &str,
+        draw_offered: Option<Color>,
+        status: Option<GameOver>,
+    ) -> Result<Self, GameError> {
+        let board = match parse_fen(fen) {
+            Ok(board) => board,
+            Err(_) => {
+                return Err(GameError::InvalidPosition);
+            }
+        };
+        Ok(Game {
+            board,
+            draw_offered,
+            status,
+        })
+    }
+
+    pub fn to_fen(&self, halfmove_clock: u8, fullmove_number: u8) -> Result<String, String> {
+        format_fen(&self.board, halfmove_clock, fullmove_number)
+    }
+
     // convenience accessor for board.get_turn_color
     pub fn get_turn_color(&self) -> Color {
         self.board.get_turn_color()
