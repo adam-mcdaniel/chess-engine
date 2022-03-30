@@ -23,6 +23,9 @@ pub use piece::Piece;
 mod position;
 pub use position::*;
 
+mod util;
+pub use util::*;
+
 pub const WHITE: Color = Color::White;
 pub const BLACK: Color = Color::Black;
 

@@ -103,6 +103,16 @@ impl BoardBuilder {
         self
     }
 
+    pub fn set_en_passant(mut self, position: Option<Position>) -> Self {
+        self.board.en_passant = position;
+        self
+    }
+
+    pub fn set_turn(mut self, color: Color) -> Self {
+        self.board = self.board.set_turn(color);
+        self
+    }
+
     pub fn build(self) -> Board {
         self.board
     }
@@ -124,11 +134,11 @@ impl Default for CastlingRights {
 }
 
 impl CastlingRights {
-    fn can_kingside_castle(&self) -> bool {
+    pub fn can_kingside_castle(&self) -> bool {
         self.kingside
     }
 
-    fn can_queenside_castle(&self) -> bool {
+    pub fn can_queenside_castle(&self) -> bool {
         self.queenside
     }
 
@@ -658,6 +668,13 @@ impl Board {
                     && !self.is_in_check(color)
                     && !self.is_threatened(Position::queen_pos(color), color)
             }
+        }
+    }
+
+    pub fn get_castling_rights(&self, color: Color) -> CastlingRights {
+        match color {
+            WHITE => self.white_castling_rights,
+            BLACK => self.black_castling_rights,
         }
     }
 
