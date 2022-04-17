@@ -1,5 +1,7 @@
 use super::{Board, Color, Move, Position};
+use alloc::string::String;
 use alloc::vec::Vec;
+use core::convert::TryFrom;
 
 /// A piece on a board.
 ///
@@ -175,6 +177,24 @@ impl core::fmt::Display for Piece {
                 },
             }
         )
+    }
+}
+
+impl TryFrom<&str> for Piece {
+    type Error = String;
+
+    fn try_from(name: &str) -> Result<Self, Self::Error> {
+        let color = Color::Black;
+        let position = Position::new(-1, -1);
+        match name {
+            "king" => Ok(Self::King(color, position)),
+            "queen" => Ok(Self::Queen(color, position)),
+            "rook" => Ok(Self::Rook(color, position)),
+            "bishop" => Ok(Self::Bishop(color, position)),
+            "knight" => Ok(Self::Knight(color, position)),
+            "pawn" => Ok(Self::Pawn(color, position)),
+            _ => Err(String::from("invalid piece name")),
+        }
     }
 }
 
@@ -418,11 +438,11 @@ impl Piece {
                 }
 
                 if up_left.is_on_board() && board.has_enemy_piece(up_left, ally_color) {
-                    result.push(Move::Piece(pos, up.next_left()))
-                } else if up_right.is_on_board()
-                    && board.has_enemy_piece(up.next_right(), ally_color)
-                {
-                    result.push(Move::Piece(pos, up.next_right()))
+                    result.push(Move::Piece(pos, up_left))
+                }
+
+                if up_right.is_on_board() && board.has_enemy_piece(up_right, ally_color) {
+                    result.push(Move::Piece(pos, up_right))
                 }
             }
 
@@ -447,6 +467,7 @@ impl Piece {
                     result.push(Move::QueenSideCastle);
                 }
             }
+
             Self::Queen(ally_color, pos) => {
                 for row in 0..8 {
                     let new_pos = Position::new(row, pos.get_col());
@@ -514,6 +535,7 @@ impl Piece {
                     }
                 }
             }
+
             Self::Knight(ally_color, pos) => {
                 for p in &[
                     pos.next_left().next_left().next_above(),
