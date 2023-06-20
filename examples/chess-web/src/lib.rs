@@ -34,7 +34,7 @@ lazy_static! {
 
 const SQUARE_SIZE: u16 = 60;
 // pub const AI_DEPTH: i32 = if cfg!(debug_assertions) {2} else {3};
-pub const AI_DEPTH: i32 = 3;
+pub const AI_DEPTH: i32 = 2;
 
 pub fn best_move(board: &Board) -> Move {
     board.get_best_next_move(AI_DEPTH).0
