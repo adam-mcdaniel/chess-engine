@@ -19,7 +19,7 @@ impl Square {
     /// Does this square contain a piece?
     #[inline]
     pub fn is_empty(&self) -> bool {
-        self.piece == None
+        self.piece.is_none()
     }
 
     /// Get the piece contained in this square.
