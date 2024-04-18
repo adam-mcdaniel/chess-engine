@@ -154,7 +154,7 @@ pub fn parse_fen(fen: &str) -> Result<Board, String> {
                     false => Color::Black,
                 };
                 // using as because row/col always in u8 range
-                let position = Position::new(row as i32, col as i32);
+                let position = Position::new(row, col);
                 let piece = match x.to_ascii_lowercase() {
                     'b' => Piece::Bishop(color, position),
                     'n' => Piece::Knight(color, position),

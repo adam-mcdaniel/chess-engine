@@ -124,7 +124,7 @@ impl Position {
 
     /// Create a `Position` from its respective row or column number.
     /// The row and column numbers can be any of 0, 1, 2, 3, 4, 5, 6, or 7.
-    /// 
+    ///
     /// Examples:
     /// - `A1 = Position::new(0, 0)`
     /// - `A8 = Position::new(7, 0)`
@@ -217,7 +217,7 @@ impl Position {
     fn diagonal_distance(&self, other: Self) -> i32 {
         (self.col - other.col).abs()
     }
-    
+
     /// Is this position orthogonal to another position?
     #[inline]
     pub fn is_orthogonal_to(&self, other: Self) -> bool {
@@ -231,7 +231,7 @@ impl Position {
     }
 
     /// Is this position adjacent to another position?
-    /// 
+    ///
     /// Adjacent positions have either:
     /// 1. A diagonal distance of one from each other
     /// 2. An orthogonal distance of one from each other
@@ -248,7 +248,7 @@ impl Position {
 
     /// Is this position beneath another position on the board?
     /// Pieces "beneath" other pieces on the board have lower ranks.
-    /// 
+    ///
     /// So, for example, A7 is below A8.
     #[inline]
     pub fn is_below(&self, other: Self) -> bool {
@@ -257,7 +257,7 @@ impl Position {
 
     /// Is this position above another position on the board?
     /// Pieces "above" other pieces on the board have higher ranks.
-    /// 
+    ///
     /// So, for example, A8 is above A8.
     #[inline]
     pub fn is_above(&self, other: Self) -> bool {
@@ -267,7 +267,7 @@ impl Position {
     /// Is this position left of another position on the board?
     /// Pieces "left of" other pieces on the board have a lower
     /// lexigraphical column character.
-    /// 
+    ///
     /// So, for example, A8 is left of B8.
     #[inline]
     pub fn is_left_of(&self, other: Self) -> bool {
@@ -277,7 +277,7 @@ impl Position {
     /// Is this position right of another position on the board?
     /// Pieces "right of" other pieces on the board have a higher
     /// lexigraphical column character.
-    /// 
+    ///
     /// So, for example, B8 is right of A8.
     #[inline]
     pub fn is_right_of(&self, other: Self) -> bool {
@@ -285,7 +285,7 @@ impl Position {
     }
 
     /// Get the position directly below this position.
-    /// 
+    ///
     /// IMPORTANT NOTE: This will NOT check for positions
     /// off of the board! You could easily get an invalid
     /// position if you do not check with the `is_on_board`
@@ -296,7 +296,7 @@ impl Position {
     }
 
     /// Get the position directly above this position.
-    /// 
+    ///
     /// IMPORTANT NOTE: This will NOT check for positions
     /// off of the board! You could easily get an invalid
     /// position if you do not check with the `is_on_board`
@@ -308,7 +308,7 @@ impl Position {
 
     /// Get the next square upwards from a respective player's
     /// pawn.
-    /// 
+    ///
     /// IMPORTANT NOTE: This will NOT check for positions
     /// off of the board! You could easily get an invalid
     /// position if you do not check with the `is_on_board`
@@ -323,7 +323,7 @@ impl Position {
 
     /// Get the next square backwards from a respective player's
     /// pawn.
-    /// 
+    ///
     /// IMPORTANT NOTE: This will NOT check for positions
     /// off of the board! You could easily get an invalid
     /// position if you do not check with the `is_on_board`
@@ -332,9 +332,9 @@ impl Position {
     pub fn pawn_back(&self, ally_color: Color) -> Self {
         self.pawn_up(!ally_color)
     }
-    
+
     /// Get the position directly left of this position.
-    /// 
+    ///
     /// IMPORTANT NOTE: This will NOT check for positions
     /// off of the board! You could easily get an invalid
     /// position if you do not check with the `is_on_board`
@@ -345,7 +345,7 @@ impl Position {
     }
 
     /// Get the position directly right of this position.
-    /// 
+    ///
     /// IMPORTANT NOTE: This will NOT check for positions
     /// off of the board! You could easily get an invalid
     /// position if you do not check with the `is_on_board`
@@ -369,7 +369,7 @@ impl Position {
     pub fn is_kingside_rook(&self) -> bool {
         (self.row == 0 || self.row == 7) && self.col == 7
     }
-    
+
     /// Is this the starting position of the queenside rook?
     #[inline]
     pub fn is_queenside_rook(&self) -> bool {
@@ -378,7 +378,7 @@ impl Position {
 
     /// Get the list of positions from this position to another
     /// position, moving diagonally.
-    /// 
+    ///
     /// This does _not_ include the `from` position, and includes the `to` position.
     pub fn diagonals_to(&self, to: Self) -> Vec<Self> {
         if !self.is_diagonal_to(to) {
@@ -411,7 +411,7 @@ impl Position {
 
     /// Get the list of positions from this position to another
     /// position, moving orthogonally.
-    /// 
+    ///
     /// This does _not_ include the `from` position, and includes the `to` position.
     pub fn orthogonals_to(&self, to: Self) -> Vec<Self> {
         if !self.is_orthogonal_to(to) {
